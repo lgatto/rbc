@@ -24,7 +24,7 @@ good decision to use R markdown.
 We set the participants an ambitious goal for the bootcamp: to write
 their own R package to generate plots from the
 [Cambridge weather](http://www.cl.cam.ac.uk/research/dtg/weather/)
-dataset.  As these data are fairly easy to understand, the
+dataset.  As these data are fairly easy to interpret, the
 participants could focus on the computing task, rather than needing
 first to understand the data.
 
