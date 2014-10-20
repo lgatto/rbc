@@ -67,8 +67,9 @@ throughout the course:
 Some of these topics will be addressed through the development of an R
 package that applied object oriented programming. The main thread that
 we will use is the definition and manipulations of generic and
-biological sequences that will, eventually, materialise into a fully
-fledged package. All the content will be made available here.
+biological sequences that will, eventually, materialise into a
+[fully fledged package](http://cran.r-project.org/web/packages/sequences/). All
+the content will be made available here.
 
 Some material from earlier (similar) courses is available at:
 - Previous bootcamp: https://github.com/lgatto/rbc/tree/2014-01-07-CAM
