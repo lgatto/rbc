@@ -61,7 +61,7 @@ install_github("lgatto/sequences")
 
 
 Some material from earlier (similar) courses is available:
-- Previous bootcamp: https://github.com/lgatto/rbc/
+- Previous bootcamp: https://github.com/lgatto/rbc/tree/2014-01-07-CAM
 - Various teaching material: https://github.com/lgatto/teachingmaterial
 
 
