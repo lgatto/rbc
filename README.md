@@ -49,6 +49,11 @@ install_github("lgatto/sequences")
 
 ## Programme
 
+The aim of the workshop is to provide a set of tools to enable a more
+structured, efficient and systematic use of programming in
+computational sciences. We will address the following points
+throughout the course:
+
 - R object-oriented programming: S3 and S4, S4 Reference Classes.
 - R package development
 - R documentation and roxygen.
@@ -59,8 +64,13 @@ install_github("lgatto/sequences")
 - Using C/C++ in R and the `Rcpp` package.
 - Source code versioning using `git` and `github`.
 
+Some of these topics will be addressed through the development of an R
+package that applied object oriented programming. The main thread that
+we will use is the definition and manipulations of generic and
+biological sequences that will, eventually, materialise into a fully
+fledged package. All the content will be made available here.
 
-Some material from earlier (similar) courses is available:
+Some material from earlier (similar) courses is available at:
 - Previous bootcamp: https://github.com/lgatto/rbc/tree/2014-01-07-CAM
 - Various teaching material: https://github.com/lgatto/teachingmaterial
 
