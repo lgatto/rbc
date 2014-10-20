@@ -59,8 +59,10 @@ throughout the course:
 - R documentation and roxygen.
 - Functional programming, vectorisation
 - Reproducible research and vignettes
+- Debugging and unit testing. 
 - Automating your pipelines with `Makefile`
 - Parallelisation: `parallel` and `BiocParallel`.
+- Code profiling and strategies for optimisation.
 - Using C/C++ in R and the `Rcpp` package.
 - Source code versioning using `git` and `github`.
 
