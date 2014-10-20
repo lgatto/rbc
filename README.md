@@ -1,43 +1,36 @@
-R boot-camp
-===
+Hi RADIANT members,
 
-- When: 07 and 08 Jan 2014
-- Where: Centre for Mathematical Sciences, University of Cambridge
-- More details: http://sje30.github.io/2014-01-07-cam/
+Just a quick notice to say that we are organizing an "Advanced R"
+Software Carpentry bootcamp to be hosted here at UZH on November
+6th/7th (Thu/Fri).  There are only 30 total spots available (well, ~25
+now) and if you are interested in coming, you can register at this
+link:
 
-- twitter hashtag: `#rcamscw`
+https://www.eventbrite.com/e/zurich-software-carpentry-advanced-r-bootcamp-registration-12334106645[1]
 
-## Schedule
+Note: we assume that you are already a intermediate-level R user and
+are comfortable with Unix (we will have a virtual machine OR you can
+use your own laptop) as NO BASICS WILL BE COVERED.  It will be taught
+by Laurent Gatto and Robert Stojnic (and hopefully one other helper).
+The exact material is still not precisely defined, but will include
+some of these topics:
 
-### Day 1
+- Makefiles (SC requirement)
+- classes - S3, S4 == ~ 1/2 day
+- package development == ~ 1/2 day
+- functional programming
+- reproducible research
+- roxygen for documentation
+- "Topics": Rcpp + BiocParallel + github == ~ 1/2 day or a bit less
 
-|  When | What               | Who |
-|-------|--------------------|-----|
-| 08:30 | Setup              | LG  |
-| 09:00 | Welcome            | SJE |
-| 09:15 | R introduction     | LG  |
-| 10:30 | Break              |     |
-| 10:45 | R programming      | LG  |
-| 12:00 | Lunch              |     |
-| 13:00 | R programming      | LG  |
-| 14:15 | Break              |     |
-| 14:30 | Shell, make        | SJE |
-| 16:30 | Wrapup             |     |
+Some material from earlier (similar) courses is available:
+https://github.com/lgatto/rbc/[2]
+https://github.com/lgatto/teachingmaterial[3]
 
-### Day 2
+I will leave registrations open for the next week (until 17.00 9th
+Sept) and if it's not full, I will open it to local UZH labs.
 
-|  When | What               | Who |
-|-------|--------------------|-----|
-| 09:00 | Version Control    | AP  |
-| 10:30 | Break              |     |
-| 10:45 | Version Control    | AP  |
-| 12:00 | Lunch              |     |
-| 13:00 | R packaging        | LG  |
-| 14:00 | Break              |     |
-| 14:15 | Vignettes, testing | SJE |
-| 15:30 | Github packaging   | LG  |
-| 16:00 | Questions?         |     |
-| 16:30 | End                |     |
+Cheers, Mark
 
 
 
