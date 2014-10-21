@@ -7,7 +7,8 @@ Advanced R boot camp
 - When: November 6th/7th 2014 (Thu/Fri)
 - Registration: https://www.eventbrite.com/e/zurich-software-carpentry-advanced-r-bootcamp-registration-12334106645
 
-- Instructors: Laurent Gatto and Robert Stojnic.
+- Instructors: Laurent Gatto and Robert Stojnic (Cambridge).
+- With help from Frank Pennekamp (Zurich) and Peter Fields (Basel)
 
 ## Pre-requisites
 
