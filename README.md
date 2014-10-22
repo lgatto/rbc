@@ -77,7 +77,7 @@ the content will be made available here.
 ### Day 1
 
 | When          | What                       |
-|---------------+----------------------------|
+|---------------|----------------------------|
 | 8:30          | Setup                      |
 | 9:00 - 10:30  | Introduction               |
 |               | Break                      |
@@ -91,7 +91,7 @@ the content will be made available here.
 ### Day 2
 
 | When          | What                                      |
-|---------------+-------------------------------------------|
+|---------------|-------------------------------------------|
 | 9:00 - 9:45   | RR - reproducible documents and vignettes |
 | 9:45 - 10:30  | RR - automation and Makefiles             |
 |               | Break                                     |
