@@ -74,11 +74,49 @@ biological sequences that will, eventually, materialise into a
 [fully fledged package](http://cran.r-project.org/web/packages/sequences/). All
 the content will be made available here.
 
+### Day 1
+
+| When          | What                       |
+|---------------+----------------------------|
+| 8:30          | Setup                      |
+| 9:00 - 10:30  | Introduction               |
+|               | Break                      |
+| 11:00 - 12:30 | OO programming             |
+|               | Lunch                      |
+| 14:00 - 15:30 | Package development        |
+|               | Break                      |
+| 16:00 - 17:15 | Unit testing and debugging |
+| 17:15 - 17:30 | Wrap up                    |
+
+### Day 2
+
+| When          | What                                      |
+|---------------+-------------------------------------------|
+| 9:00 - 9:45   | RR - reproducible documents and vignettes |
+| 9:45 - 10:30  | RR - automation and Makefiles             |
+|               | Break                                     |
+| 11:00 - 11:45 | Vectorisation and functional programming  |
+| 11:45 - 12:30 | Profiling and optimisation                |
+|               | Lunch                                     |
+| 14:00 - 14:45 | C/C++ and Rcpp                            |
+| 14:45 - 15:30 | Parallel processing                       |
+|               | Break                                     |
+| 16:00 - 17:15 | git and github                            |
+| 17:15 - 17:30 | Wrap up                                   |
+
+
 Some material from earlier (similar) courses is available at:
 - Previous bootcamp: https://github.com/lgatto/rbc/tree/2014-01-07-CAM
 - Various teaching material: https://github.com/lgatto/teachingmaterial
 
+<!--
 
+Comments:
 
+Mark: need a whiteboard
 
+Robert:
+- do we want sticky notes
+- prepare concept maps
 
+-->
