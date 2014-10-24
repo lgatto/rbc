@@ -9,7 +9,7 @@ Advanced R boot camp
 - Registration: https://www.eventbrite.com/e/zurich-software-carpentry-advanced-r-bootcamp-registration-12334106645
 
 - Instructors: Laurent Gatto and Robert Stojnic (Cambridge).
-- With help from Frank Pennekamp (Belgium), Peter Fields (Basel) and
+- With help from Frank Pennekamp (Zurich), Peter Fields (Basel) and
   Jelena Aleksic (Cambridge).
 
 - etherpad: https://etherpad.mozilla.org/2Idlzt0luX
