@@ -5,6 +5,7 @@ Advanced R boot camp
 
 - Where: University of Zurich
 - When: November 6th/7th 2014 (Thu/Fri)
+- main page: http://lgatto.github.io/2014-11-06-UZH/
 - Registration: https://www.eventbrite.com/e/zurich-software-carpentry-advanced-r-bootcamp-registration-12334106645
 
 - Instructors: Laurent Gatto and Robert Stojnic (Cambridge).
