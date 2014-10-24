@@ -10,6 +10,8 @@ Advanced R boot camp
 - Instructors: Laurent Gatto and Robert Stojnic (Cambridge).
 - With help from Frank Pennekamp (Zurich) and Peter Fields (Basel)
 
+- etherpad: https://etherpad.mozilla.org/2Idlzt0luX
+
 ## Pre-requisites
 
 - Active knowledge of `R`. We will assume that you are familiar with
