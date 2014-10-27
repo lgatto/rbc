@@ -51,6 +51,8 @@ install_github("lgatto/sequences")
   some hints. Windows has proved to be a bit temperamental. Don't
   hesitate to get in touch if you have issues with your installation.
 
+- See also [here](http://lgatto.github.io/2014-11-06-UZH/) for
+  installation instructions.
 
 ## Programme
 
