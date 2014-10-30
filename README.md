@@ -54,6 +54,30 @@ install_github("lgatto/sequences")
 - See also [here](http://lgatto.github.io/2014-11-06-UZH/) for
   installation instructions.
 
+### A note on `git` and OSX 10.8
+
+Incompatibilities have been reported. To test if you are affected, do
+the following in a terminal:
+
+```sh
+git --version ## should work
+git init . ## may fail
+```
+
+Possible fixes:
+
+- http://stackoverflow.com/questions/22920497/git-mountain-lion-dyld-lazy-symbol-binding-failed-symbol-not-found-str
+- Try using the git-osx-installer 1.8.4.2 found here:
+https://code.google.com/p/git-osx-installer/downloads/detail?name=git-1.8.4.2-intel-universal-snow-leopard.dmg&can=2&q=
+- If it does not work or you get an error with git v1.8.4.2, the
+second thing that helped was to install or update the command line
+tools using the command `xcode-select --install`:
+http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/
+
+### Troubleshooting
+
+https://github.com/swcarpentry/bc/wiki/Configuration-Problems-and-Solutions
+
 ## Programme
 
 The aim of the workshop is to provide a set of tools to enable a more
