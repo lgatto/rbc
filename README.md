@@ -73,8 +73,9 @@ https://code.google.com/p/git-osx-installer/downloads/detail?name=git-1.8.4.2-in
 second thing that helped was to install or update the command line
 tools using the command `xcode-select --install`:
 http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/
+- https://openhatch.org/wiki/Open_Source_Comes_to_Campus/Curriculum/Laptop_setup/OSX_git
 
-### Troubleshooting
+### More troubleshooting
 
 https://github.com/swcarpentry/bc/wiki/Configuration-Problems-and-Solutions
 
