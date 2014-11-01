@@ -107,33 +107,34 @@ the content will be made available here.
 
 ### Day 1
 
-| When          | What                       |
-|---------------|----------------------------|
-| 8:30          | Setup                      |
-| 9:00 - 10:30  | Introduction               |
-|               | Break                      |
-| 11:00 - 12:30 | OO programming             |
-|               | Lunch                      |
-| 14:00 - 15:30 | Package development        |
-|               | Break                      |
-| 16:00 - 17:15 | Unit testing and debugging |
-| 17:15 - 17:30 | Wrap up                    |
+| When          | What                                     |     |
+|---------------+------------------------------------------+-----|
+| 8:30          | Setup and welcome                        | LG  |
+| 9:00 - 10:30  | Introduction, background                 | RS  |
+|               | Break                                    |     |
+| 11:00 - 12:30 | OO programming                           | RS  |
+|               | Lunch                                    |     |
+| 14:00 - 15:30 | Package development                      | RS  |
+|               | Break                                    |     |
+| 16:00 - 16:30 | Vectorisation and functional programming | LG  |
+| 16:30 - 16:45 | Intro to git/gitub                       | LG  |
+| 16:45 - 17:00 | Wrap up                                  | all |
 
 ### Day 2
 
-| When          | What                                      |
-|---------------|-------------------------------------------|
-| 9:00 - 9:45   | RR - reproducible documents and vignettes |
-| 9:45 - 10:30  | RR - automation and Makefiles             |
-|               | Break                                     |
-| 11:00 - 11:45 | Vectorisation and functional programming  |
-| 11:45 - 12:30 | Profiling and optimisation                |
-|               | Lunch                                     |
-| 14:00 - 14:45 | C/C++ and Rcpp                            |
-| 14:45 - 15:30 | Parallel processing                       |
-|               | Break                                     |
-| 16:00 - 17:15 | git and github                            |
-| 17:15 - 17:30 | Wrap up                                   |
+| When          | What                                      |     |
+|---------------+-------------------------------------------+-----|
+| 9:00 - 9:15   | Refresher day 1 and intro day 2           | LG  |
+| 9:15 - 10:00  | Unit testing and debugging                | LG  |
+| 10:00 - 10:30 | RR - reproducible documents and vignettes | LG  |
+|               | Break                                     |     |
+| 11:00 - 12:30 | RR - automation and Makefiles             | LG  |
+|               | Lunch                                     |     |
+| 14:00 - 14:45 | Profiling and optimisation                | LG  |
+| 14:45 - 15:30 | C/C++ and Rcpp                            | LG  |
+|               | Break                                     |     |
+| 16:00 - 16:40 | Parallel processing                       | LG  |
+| 16:40 - 17:00 | Wrap up, feedback                         | all |
 
 
 Some material from earlier (similar) courses is available at:
@@ -144,10 +145,6 @@ Some material from earlier (similar) courses is available at:
 
 Comments:
 
-Mark: need a whiteboard
-
-Robert:
-- do we want sticky notes
 - prepare concept maps
 
 -->
