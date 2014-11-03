@@ -133,6 +133,8 @@ detail how a package works.  See a list of them with `vignette()`.
 - specify the vignette engine `\VignetteEngine{knitr::knitr}` in the
   `Rmd` files (inside HTML comments)
 
+Now build, check and install your package.
+
 # How to compile this document
 
 This should work cross platform; first, the document is knitted to

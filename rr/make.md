@@ -67,7 +67,7 @@ clean:
 
 ## Graphical description of dependencies
 
-![./figures/makedep.pdf]
+![dependency graph](./figures/makedep.pdf)
 
 ** Makefile conventions
 
