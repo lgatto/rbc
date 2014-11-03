@@ -129,19 +129,10 @@ detail how a package works.  See a list of them with `vignette()`.
 
 # Installing vignettes into a package.
 
-knitr vignettes take a bit more work, but not too much.  Put them in
-`PKG/inst/doc` or `PKG/vignettes/` folder and follow instructions.
-e.g.  for markdown, see the file
-
-
-```r
-system.file('doc', 'knitr-markdown.Rmd', package='knitr')
-```
-
-```
-## [1] "/home/lg390/R/x86_64-unknown-linux-gnu-library/3.2/knitr/doc/knitr-markdown.Rmd"
-```
-
+- add `*.Rmd` files under the `vignettes` directory
+- add `VignetteBuilder: knitr` to the `DESCRIPTION` file
+- specify the vignette engine `\VignetteEngine{knitr::knitr}` in the
+  `Rmd` files (inside HTML comments)
 
 # How to compile this document
 
@@ -151,7 +142,7 @@ html which can be rendered.
 
 
 ```r
-require(knitr)
+library("knitr")
 knit2html("simple.Rmd")
 if (interactive()) browseURL("simple.html")
 ```
@@ -159,7 +150,7 @@ if (interactive()) browseURL("simple.html")
 In R studio, it is even simpler; just hit the special "Knit HTML" button!
 
 If you prefer the pdf format you need to have a latex compiler, so the
-following may not work for you (especially on Windows):
+following may not work for you:
 
 
 ```r
