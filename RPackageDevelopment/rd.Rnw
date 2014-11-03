@@ -1,0 +1,316 @@
+
+  
+\section{Writing R documentation}
+
+\subsection{Rd format}
+
+\begin{frame}{Rd format}
+  \begin{block}{R documentation format}
+    R objects are documented in files written in \textit{R documentation} (\texttt{Rd}) format, 
+    a simple markup language much of which closely resembles \LaTeX, which can be processed 
+    into a variety of formats, including \LaTeX, HTML, pdf and plain text.    
+  \end{block}
+  \begin{block}{\texttt{man/} directory}
+  	The documentation files are in the separate \texttt{man/} package directory.
+  \end{block}
+  \begin{block}{Using roxygen2}
+  	Package \Rfunction{roxyxgen2} makes it easier to write documentation using special
+  	\textbf{in-source} markup (similarly to Doxygen).  	  
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Roxygen2}
+  \begin{example}
+    \tiny
+\begin{verbatim}
+#' Reads sequences data in fasta and create \code{DnaSeq}
+#' and \code{RnaSeq} instances. 
+#'
+#' This funtion reads DNA and RNA fasta files and generates
+#' valid \code{"DnaSeq"} and \code{"RnaSeq"} instances.
+#' 
+#' @title Read fasta files.
+#' @param infile  the name of the fasta file which the data are to be read from.
+#' @return an instance of \code{DnaSeq} or \code{RnaSeq}.
+#' @seealso \code{\linkS4class{GenericSeq}}, \code{\linkS4class{DnaSeq}} and \code{\linkS4class{RnaSeq}}.
+#' @examples
+#' f <- dir(system.file("extdata",package="sequences"),pattern="fasta",full.names=TRUE)
+#' f
+#' aa <- readFasta(f)
+#' aa
+#' @author Laurent Gatto \email{lg390@@cam.ac.uk}
+#' @export
+readFasta <- function(infile){
+  lines <- readLines(infile)
+  header <- grep("^>", lines)
+  if (length(header)>1) {
+    warning("Reading first sequence only.")
+    lines <- lines[header[1]:(header[2]-1)]
+    header <- header[1]
+  }
+  ##### (code cut for space reasons) #####
+  if (validObject(newseq))
+    return(newseq)
+}
+\end{verbatim}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]{Using roxygen2 to write documentation}
+  \begin{block}{\exercise Document readFasta}
+  	Use the code from the previous slide to document your own readFasta() function inside your package. 
+  	When you are finished do the following:
+  	\begin{enumerate}
+  		\item To generate the .Rd file for your package run:
+<<roxygen2,echo=TRUE,eval=FALSE>>=
+library(roxygen2)
+roxygenise("myRpackage/")
+@ 
+		\item Rebuild/reload your package
+		\item Verify that \Rfunction{?readFasta} gives the expected help page.
+		\item Look at \Rfunction{man/readFasta.Rd} and try to understand the structure.
+  	\end{enumerate}
+  \end{block}
+  \begin{block}{roxygen2 syntax}
+  For more information on roxygen2: \url{http://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Rd format}
+  \begin{block}{An \texttt{Rd} file constists of}
+    \begin{description}
+      \item[Header] provides basic information about the name of the file, the topics documented, a title, a short textual description and R usage information -- mandatory.
+      \item[Body] gives further information defined within \textit{sections} (for example, on the function's arguments and return value, as in the example)
+      \item[Footer] with keyword information -- optional.
+    \end{description}
+  \end{block}
+  \begin{alertblock}{}
+    Every (exported) object must be documented. Package documentation is optional.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  \tiny
+  \begin{example}
+\begin{verbatim}
+% File src/library/base/man/load.Rd
+\name{load}
+\alias{load}
+\title{Reload Saved Datasets}
+\description{
+  Reload the datasets written to a file with the function
+  \code{save}.
+}
+\usage{
+load(file, envir = parent.frame())
+}
+\arguments{
+  \item{file}{a connection or a character string giving the
+    name of the file to load.}
+  \item{envir}{the environment where the data should be
+    loaded.}
+}
+\seealso{
+  \code{\link{save}}.
+}
+\examples{
+## save all data
+save(list = ls(), file= "all.RData")
+
+## restore the saved values to the current environment
+load("all.RData")
+     
+## restore the saved values to the workspace
+load("all.RData", .GlobalEnv)
+}
+\keyword{file}
+\end{verbatim}
+  \end{example}
+\end{frame}
+
+
+\begin{frame}{Documentation}
+  \begin{block}{General comments}
+    \begin{itemize}
+    \item Different objects are documented with different types of \texttt{Rd} files, as defined by  the \texttt{\char`\\docType\{\}} tag. 
+    \item Different object documentation require or are advised to contain different sections.
+    \item One \texttt{.Rd} file can document several objects by defining multiple \texttt{\char`\\alias\{\}}'es.
+    \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Documentation}
+  \begin{block}{Guidelines for Rd files}
+    These are suggested guidelines for the system help files (in \texttt{.Rd} format) that are 
+    intended for core developers but may also be useful for package writers. 
+    (see \url{http://developer.r-project.org/Rds.html})
+  \end{block}
+  \begin{block}{}
+    There are many different sections and marking text (for mathematical notation, tables, cross-references, \ldots), 
+    that will look very familiar to \LaTeX~users. All are described in \textit{Writing R documentation files} (section 2)
+    of the R-ext manual. \\
+    Fortunately, the \texttt{prompt(object)} \textit{et. al.} functions will inspect the \Robject{object}
+    to be documented and create a specific documentation skeleton for us to be completed.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Package documentation}
+  \begin{block}{}
+    Provides an short and optional overview of a package. 
+  \end{block}
+  \begin{example}
+    \texttt{promptPackage("sequences")}
+  \end{example}
+  \begin{block}{Demonstration}
+    Let's look at the \texttt{sequences-package.Rd} that documents our package.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Data sets documentation}
+  \begin{example}
+    \tiny
+\begin{verbatim}
+     \name{rivers}
+     \docType{data}
+     \alias{rivers}
+     \title{Lengths of Major North American Rivers}
+     \description{
+       This data set gives the lengths (in miles) of 141 \dQuote{major}
+       rivers in North America, as compiled by the US Geological
+       Survey.
+     }
+     \usage{rivers}
+     \format{A vector containing 141 observations.}
+     \source{World Almanac and Book of Facts, 1975, page 406.}
+     \references{
+       McNeil, D. R. (1977) \emph{Interactive Data Analysis}.
+       New York: Wiley.
+     }
+     \keyword{datasets}
+\end{verbatim}
+  \end{example}
+  \begin{example}
+    \texttt{prompt(myDataFrame)} or \texttt{promptData(myDataObject)}
+  \end{example}
+  \begin{block}{Demonstration}
+    Let's look at the document of the \Robject{dnaseq} object.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Function documentation}
+  \begin{block}{}
+    Many markup command, including 
+    \texttt{\char`\\usage\{fun(arg1, arg2, ...)\}}, 
+    \texttt{\char`\\arguments\{...\}},
+    \texttt{\char`\\section\{Warning\}\{...\}} and 
+    \texttt{\char`\\examples\{...\}}, which are executed!
+  \end{block}
+  \begin{example}
+    \texttt{prompt(object=myFunction)} or \texttt{prompt(name="myFunction")}
+  \end{example}
+  \begin{block}{Demonstration}
+    We have written one functions for our package so far, \Rfunction{readFasta}. 
+    It's documentation is available in \texttt{man/readFasta.Rd}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Documenting S4 classes and methods}
+  \begin{block}{}
+    Documentation is 'similar' than for functions. 
+    Note that \texttt{aliases} are of the form \texttt{MyClass-class} or 
+    \texttt{MyGeneric,signature\_list-method}. Additionnal aliases should 
+    be added to refer to \texttt{MyGeneric}, \texttt{MyGeneric-method}, \ldots     
+    and the manuals are accessed with \texttt{class?topic} and \texttt{method?topic}.
+    Overall documentation for methods should be aliased 
+    with \texttt{MyGeneric-methods} \\
+    See \Rfunction{help("Documentation", package = "methods")} for more details.
+  \end{block}
+  \begin{example}    
+     \texttt{promptClass("MyClass")} and \texttt{promptMethods("myMethod")}
+  \end{example}
+\end{frame}
+
+\begin{frame}{Document GenericSeq}
+  \begin{block}{\exercise Document GenericSeq using \Rfunction{promptClass()}}
+  	Load \texttt{GenericSeq} \textbf{and} all of its methods into your
+  	R session and then run \Rfunction{promptClass("GenericSeq")}. Edit the 
+  	resulting .Rd file and place it into \texttt{man/}. 
+  \end{block}
+  
+    \begin{block}{Compare: \Rfunction{promptClass()} vs roxygen2}
+  	Roxygen makes it easy to document individual methods, \Rfunction{promptClass()}
+  	makes it easy to document the whole class with all the methods in a single file.
+  \end{block}
+\end{frame}
+
+\subsection{Vignettes}
+
+\begin{frame}[fragile]{Vignettes}
+  \begin{block}{Package vignette}
+    These \textit{executable} documents are in Sweave format (\texttt{.Rnw} extension), 
+    which is an extended \LaTeX~document that includes code chunks. 
+    These are executed and the output (variable, but also tables and graphs) 
+    are displayed in the document. 
+    These dynamic reports, are updated automatically if data or analysis change. \\
+    \bigskip
+    The package vignettes are compiled at build time and are the prefered place 
+    for more extensive package documentation and use-cases. \\
+    \bigskip
+    Reference: \url{http://www.stat.uni-muenchen.de/~leisch/Sweave/}
+  \end{block}
+  \begin{block}{}
+    The \texttt{knitr}\footnote{\url{http://yihui.name/knitr/}} package
+    is an alternative to the \texttt{Sweave} package that provides
+    syntax highlighting, caching, ... and markdown out of the box.
+  \end{block}
+\end{frame}
+
+%% \begin{frame}[fragile]{Vignettes}
+%%   \begin{Verbatim}
+%%  ... LaTeX document ...   
+    
+%%  <<label=myCode,echo=TRUE,fig=TRUE>>=
+%%  x <- sort(rnorm(100))
+%%  y <- sort(rnorm(100,2,2))
+%%  plot(x,y,pch=19,col="#0000BB80")
+%%  abline(lm(y~x))
+%%  @
+ 
+%%  ... LaTeX document ...   
+%%   \end{Verbatim}
+%% \end{frame}
+
+%% \begin{frame}[fragile]{Vignettes}
+%%   \scriptsize
+%% <<label=myCode,echo=TRUE,fig=TRUE,width=4,height=3.3,keep.source=TRUE>>=
+%% x <- sort(rnorm(100)); y <- sort(rnorm(100,2,2))
+%% plot(x,y,pch=19,col="#0000BB80"); abline(lm(y~x))
+%% @
+%% \end{frame}
+
+
+\begin{frame}{Vignettes}
+  \begin{block}{Demonstration}
+    Let's have a look at the \Rpackage{sequences} package vignette in 
+    \texttt{sequences/inst/doc}.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{\Rfunction{sessionInfo()}}
+  \begin{block}{}
+    Prints version information about R and attached or loaded packages.
+  \end{block}
+  \tiny
+<<sessionInfo,echo=TRUE>>=
+sessionInfo()
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{\Rfunction{sessionInfo()} in vignettes}
+  \small
+<<label=sessioninfo, results='asis', echo=TRUE>>=
+toLatex(sessionInfo())
+@ 
+\end{frame}
