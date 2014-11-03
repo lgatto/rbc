@@ -91,7 +91,7 @@ clean:
 | make all   | rebuild everything                    |
 | make clean | remove files that can be rebuilt      |
 | touch file | update timestamp, preserving contents |
-|------------+---------------------------------------|
+|------------|---------------------------------------|
 
 
 ## Makefile: next steps
