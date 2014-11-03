@@ -69,45 +69,47 @@ clean:
 
 ![dependency graph](./figure/makedep.png)
 
-** Makefile conventions
+## Makefile conventions
 
    - PHONY targets: denote actions; ignore filenames with same
      name. PHONY targets are always out of date, and so always run.
 
-#+begin_src example
+```
 .PHONY: all clean
 all: report.pdf
 
 clean:
 	rm -f report.pdf report.log report.aux
 	rm -f sim1.* sim2*
-
-#+end_src
-
-        |------------+---------------------------------------|
-        | command    | action                                |
-        |------------+---------------------------------------|
-        | make       | check first rule                      |
-        | make all   | rebuild everything                    |
-        | make clean | remove files that can be rebuilt      |
-        | touch file | update timestamp, preserving contents |
-        |------------+---------------------------------------|
+```
 
 
-** Makefile: next steps
+|------------+---------------------------------------|
+| command    | action                                |
+|------------+---------------------------------------|
+| make       | check first rule                      |
+| make all   | rebuild everything                    |
+| make clean | remove files that can be rebuilt      |
+| touch file | update timestamp, preserving contents |
+|------------+---------------------------------------|
+
+
+## Makefile: next steps
 
 - variables
 - implicit rules
 - saving space:
-: sim2.dat: params.R simulator.R
-:	Rscript simulator.R runif > sim2.dat
+```
+sim2.dat: params.R simulator.R
+	Rscript simulator.R runif > sim2.dat
 
-: sim2.dat: params.R simulation.R
-:	Rscript simulator.R runif > $@
+sim2.dat: params.R simulation.R
+	Rscript simulator.R runif > $@
+```
 
-- parallel processing =make -j2 job=
+- parallel processing `make -j2 job`
 
-** Makefile references
+## Makefile references
 
 - Further reading: 
 [[http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html][http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html]]
@@ -118,161 +120,65 @@ clean:
 - The GNU make manual 
 [[http://www.gnu.org/software/make/manual/make.html][http://www.gnu.org/software/make/manual/make.html]]
 
-** Makefile: example lab work
+# Use case: [maker](https://github.com/computationalproteomicsunit/maker) - a `Makefile` for `R` packages
 
-- In the lab session, download =rr_make.zip=
-\note{stored in directory \url{rr_make}}
+```
+Usage:
 
-- Experiment with remaking report after changing parameters.
+ make TARGET PKG=package
 
-- Add a new plot to the report, using sim3 -- sampling N numbers from
-  rgamma with new parameters (stored in params.R).  You will need to
-  edit simulator.R too.
+Available targets:
 
-* Sweave
+ build                       - build source package
+ vignettes                   - build vignettes in ./${PKGDIR}/vignettes
+ check                       - build and check package
+ check-only                  - check package and time checking
+ bioccheck                   - build, check and BiocCheck package
+ bioccheck-only              - BiocCheck package
+ check-downstream            - check packages which depend on this package
+ check-reverse-dependencies  - check packages which depend on this package
+ clean                       - remove temporary files and .Rcheck
+ clean-tar                   - remove .tar.gz archive
+ clean-vignettes             - remove vignettes in inst/doc/
+ clean-all                   - combine "clean" and "clean-all"
+ compile-attributes          - run Rcpp::compileAttributes()
+ help                        - show this usage output
+ increment-version-major     - increment major version number (X++.1)
+ increment-version-minor     - increment minor version number (1.X++)
+ increment-version-patch     - increment patch version number (1.1.X++)
+ install                     - build and install package
+ install-only                - install package
+ install-dependencies        - install package dependencies
+ install-upstream            - install package dependencies
+ release                     - build package for Bioc/CRAN release (includes vignettes etc.)
+ remove                      - remove package
+ roxygen                     - roxygenize package
+ rd                          - roxygenize rd rocklet
+ run-demos                   - source and run demo/*.R files
+ targets                     - show this usage output
+ usage                       - show this usage output
+ win-builder                 - build package and send to win-builder.r-project.org
 
-** Sweave: literate programming for R
+ maker                       - updates maker toolbox
+ version                     - prints latest git hash and date of maker
 
-   - Sweave is the system for mixing \LaTeX and \R code in the same
-     document.
+Available variables:
 
-   - Used within \R often to create "vignettes" which can be
-     dynamically run.
+ PKG                         - name of the target package (default is maker)
+ PKGDIR                      - directory of the package (default is ./${PKG}/)
+ VIG                         - should vignettes be build (default is 1). If 0, build --no-build-vignettes is used
+ WARNINGS_AS_ERRORS          - fail on warnings (default is 1)
+ CRAN                        - check using --as-cran (default is 0)
+ COLOURS                     - using colours for R CMD check results (default is 1)
+ RPROFILE                    - path to .Rprofile (default is /home/lg390/dev/00_github/maker//include//Rprofile)
+ TIMEFORMAT                  - time format (default: empty)
 
-   - Allows you to write reports where results (tables, graphs) are
-     automatically generated by your \R code.
+Misc:
 
-** Sweave: including code chunks
-   
-- An example code chunk: by default we are in 'LaTeX mode'.
+ Vignettes are not build when checking: R CMD check --no-build-vignettes
 
-#+begin_src example
-We can then test the procedure a few
-times, using the default number 
-of darts, 1000:
+Version:
 
-<<>>=
-replicate(9, estimate.pi())
-@ 
-#+end_src
+ 8a2b59a [2014-10-13 12:08:55 +0200]
+```
 
-** Sweave: including graphs
-
-- Automatically creates filenames, e.g. ~estimate-001.pdf~
-
-- By default will generate .ps and .pdf; so change options:
-: \SweaveOpts{echo=TRUE,pdf=TRUE,eps=FALSE,eval=TRUE,keep.source=TRUE}
-
-#+begin_src example
-\setkeys{Gin}{width=0.6\textwidth}
-\begin{center}
-<<fig=TRUE>>=
-r <- 1; n <- 50; par(las=1)
-plot(NA, xlim=c(-r,r), ylim=c(-r,r), asp=1, bty='n',
-     xaxt='n', yaxt='n', xlab='', ylab='')
-axis(1, at=c(-r,0,r)); axis(2, at=c(-r,0,r))
-symbols(x=0, y=0, circles=r, inch=F, add=T)
-...
-rect(-r, -r, r, r, border='blue', lwd=2)
-@ 
-\end{center}
-#+end_src
-
-
-** Sweave: including tables
-
-- Use the /xtable/ package from CRAN.  
-
-- Example from that package:
-
-
-#+begin_src example
-<<echo=FALSE>>=
-library(xtable)
-data(tli)
-@ 
-
-<<label=tab1,echo=FALSE,results=tex>>=
-     ## Demonstrate data.frame
-     tli.table <- xtable(tli[1:20,])
-     digits(tli.table)[c(2,6)] <- 0
-     print(tli.table)
-@ 
-#+end_src example
-
-** Sweave: including inline computation
-
-#+begin_src example
-In this case the number of darts within
-the circle is \Sexpr{d}, and so the estimated
-value is $\pi \approx \Sexpr{4*d/n}$.
-#+end_src
-
-** Sweave: a full example
-   - Example application: estimate the value of \pi using the
-   dartboard method. 
-   - [[estimate.Rnw][estimate.Rnw]]
-
-   - See handout of estimate.Rnw and estimate.pdf
-
-   - For nice ways to customize Sweave output
-   [[http://proteome.sysbiol.cam.ac.uk/lgatto/teaching/files/Sweave-customisation.pdf][http://proteome.sysbiol.cam.ac.uk/lgatto/teaching/files/Sweave-customisation.pdf]]
-   - Compiling the document with make:
-   
-#+begin_src example
-estimate.pdf: estimate.Rnw
-	R CMD Sweave estimate.Rnw
-	pdflatex estimate.tex
-#+end_src
-
-** Sweave: issues and next steps.
-
-- If you edit \texttt{.tex}, Sweave code is re-run.  Compare with Makefiles,
-  which offer finer-level control.
-
-- Tedious to keep running with long calculations.  
-  =cacheSweave= package will help to cache results.
-
-- FAQ available:
-#+LaTeX: \url{http://www.stat.uni-muenchen.de/~leisch/Sweave/FAQ.htm}
-
-- /odfWeave/ and /RHTML/ packages allow for output to OpenOffice and
-  HTML.
-
-- matrices and data frames can be export, e.g. using =xtable= package.
-
-* Other approaches to RR
-
-** Other approaches to RR
-
-- \R packages: truly reproducible research.  \R packages allow you to
-  include code, data, documentation, vignettes.
-
-- The \R package =ascii=[fn:ascii] allows you to embed \R code into your
-    documents.
-
-# http://www.ncfaculty.net/dogle/fishR/bookex/AIFFD/AIFFD_Main.html
-
-- *Org mode*[fn:orgm] and *Org babel*[fn:orgb]: Only Emacs users need apply.  Key advantage: allows many
-  different languages to be included in one document, with textual
-  communication between those programs. Org mode exports to multiple formats. \\
-  (show source of these slides)
-
-- =knitr= is an alternative to =Sweave=, that uses caching, syntax highlighting, 
-  code tidy-up, ... by default. Also weaves to html. Good integration with =rstudio=.
-
-[fn:ascii] [[http://eusebe.github.com/ascii][http://eusebe.github.com/ascii]]
-[fn:orgm] [[http://orgmode.org/][http://orgmode.org/]]
-[fn:orgb] [[http://orgmode.org/worg/org-contrib/babel/][http://orgmode.org/worg/org-contrib/babel/]]
-
-
-** Extra handouts
-   1. Makefile: report.pdf
-   2. Sweave: =estimate.Rnw= and =estimate.pdf= 
-   3. Using =kntir=: =estimatek.Rnw= and =estimatek.pdf= 
-
-Available at 
-- [[http://proteome.sysbiol.cam.ac.uk/lgatto/teaching/files/estimate.zip][http://proteome.sysbiol.cam.ac.uk/lgatto/teaching/files/estimate.zip]] 
-- [[http://proteome.sysbiol.cam.ac.uk/lgatto/teaching/files/rr_make.zip][http://proteome.sysbiol.cam.ac.uk/lgatto/teaching/files/rr_make.zip]]
-and 
-#+LaTex: \url{pwf:~/COMPBIO/spr/practicals/}
