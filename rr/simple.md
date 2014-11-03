@@ -112,14 +112,13 @@ kable(head(iris[,1:3]), format='html')
 
 # Exercise:
 
-Take a look at the example for estimating PI using a well-known method
-of throwing darts at a dartboard.
+Prepare a `Rmd` document for the `sequences` package. Look at the
+original vignette to get started:
 
-[Estimating PI](http://www.damtp.cam.ac.uk/user/eglen/rguide/estimate.pdf)
 
-Can you generate something similar with an .Rmd document?  Work on the
-basics of estimating pi and attempt the last figure only if you have
-time.
+```r
+vignette("sequences", package = "sequences")
+```
 
 # What are vignettes?
 
@@ -147,7 +146,8 @@ knit2html("simple.Rmd")
 if (interactive()) browseURL("simple.html")
 ```
 
-In R studio, it is even simpler; just hit the special "Knit HTML" button!
+In R studio, it is even simpler; just hit the special "Knit HTML"
+button!
 
 If you prefer the pdf format you need to have a latex compiler, so the
 following may not work for you:
