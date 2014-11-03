@@ -108,7 +108,7 @@ the content will be made available here.
 ### Day 1
 
 | When          | What                                     |     |
-|---------------+------------------------------------------+-----|
+|---------------|------------------------------------------|-----|
 | 8:30          | Setup and welcome                        | LG  |
 | 9:00 - 10:30  | Introduction, background                 | RS  |
 |               | Break                                    |     |
@@ -123,7 +123,7 @@ the content will be made available here.
 ### Day 2
 
 | When          | What                                      |     |
-|---------------+-------------------------------------------+-----|
+|---------------|-------------------------------------------|-----|
 | 9:00 - 9:15   | Refresher day 1 and intro day 2           | LG  |
 | 9:15 - 10:00  | Unit testing and debugging                | LG  |
 | 10:00 - 10:30 | RR - reproducible documents and vignettes | LG  |
