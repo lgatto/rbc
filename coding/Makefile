@@ -3,3 +3,8 @@ code.md: code.Rmd
 
 all:
 	make code.md
+
+clean:
+	rm -fr cache
+	rm -f rprof
+	rm -f *~
