@@ -1,5 +1,5 @@
-optim.md: optim.Rmd
-		R --vanilla -e "library(knitr); knit('optim.Rmd')"
+code.md: code.Rmd
+		R --vanilla -e "library(knitr); knit('code.Rmd')"
 
 all:
-	make optim.md
+	make code.md

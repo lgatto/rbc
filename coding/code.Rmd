@@ -1,4 +1,4 @@
-Code optimisation
+Benchamring, profiling and optimisation
 ===============
 
 ## Warning

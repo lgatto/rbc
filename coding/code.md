@@ -1,4 +1,4 @@
-Code optimisation
+Benchamring, profiling and optimisation
 ===============
 
 ## Warning
@@ -47,7 +47,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.001   0.000   0.001
+##   0.002   0.000   0.002
 ```
 
 
@@ -133,7 +133,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x23eec98>"
+## [1] "<0x1b91c98>"
 ```
 
 ```r
@@ -141,8 +141,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x23eec98 -> 0x3b4e1d8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x3b4e1d8 -> 0x3b9f3d0]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x1b91c98 -> 0x32f0268]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x32f0268 -> 0x3340fa0]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -154,7 +154,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x38b0540>"
+## [1] "<0x3052c80>"
 ```
 
 ```r
@@ -164,7 +164,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x38b0540 -> 0x37625a0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x3052c80 -> 0x2ef2988]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -246,7 +246,7 @@ f()
 ```
 
 ```
-## <environment: 0x35baca8>
+## <environment: 0x2d5dca8>
 ```
 
 ```r
@@ -266,7 +266,7 @@ e
 ```
 
 ```
-## <environment: 0x45d7390>
+## <environment: 0x3d7bd30>
 ```
 
 ```r
