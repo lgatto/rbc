@@ -107,18 +107,18 @@ the content will be made available here.
 
 ### Day 1
 
-| When          | What                                     |     |
-|---------------|------------------------------------------|-----|
-| 8:30          | Setup and welcome                        | LG  |
-| 9:00 - 10:30  | Introduction, background                 | RS  |
-|               | Break                                    |     |
-| 11:00 - 12:30 | OO programming                           | RS  |
-|               | Lunch                                    |     |
-| 14:00 - 15:30 | Package development                      | RS  |
-|               | Break                                    |     |
-| 16:00 - 16:30 | Vectorisation and functional programming | LG  |
-| 16:30 - 16:45 | Intro to git/gitub                       | LG  |
-| 16:45 - 17:00 | Wrap up                                  | all |
+| When          | What                                           |     |
+|---------------|------------------------------------------------|-----|
+| 8:30          | Setup and welcome                              | LG  |
+| 9:00 - 10:30  | Introduction, background                       | RS  |
+|               | Break                                          |     |
+| 11:00 - 12:30 | OO programming                                 | RS  |
+|               | Lunch                                          |     |
+| 14:00 - 15:30 | Package development                            | RS  |
+|               | Break                                          |     |
+| 16:00 - 16:30 | Vectorisation and functional programming       | LG  |
+| 16:30 - 16:45 | Intro to git/gitub (with applications on day 2)| LG  |
+| 16:45 - 17:00 | Wrap up                                        | all |
 
 ### Day 2
 

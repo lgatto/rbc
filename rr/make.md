@@ -82,16 +82,12 @@ clean:
 	rm -f sim1.* sim2*
 ```
 
-
-
 | command    | action                                |
 |------------|---------------------------------------|
 | make       | check first rule                      |
 | make all   | rebuild everything                    |
 | make clean | remove files that can be rebuilt      |
 | touch file | update timestamp, preserving contents |
-
-
 
 ## Makefile: next steps
 
@@ -107,19 +103,6 @@ sim2.dat: params.R simulation.R
 ```
 
 - parallel processing `make -j2 job`
-
-## Makefile references
-
-- [Karl Broman's minimal make tutorial](http://kbroman.org/minimal_make/)
-
-- Further reading: 
-[http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html](http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html)
-
-- Managing Projects with GNU Make 
-[http://oreilly.com/catalog/make3/book/index.csp](http://oreilly.com/catalog/make3/book/index.csp)
-
-- The GNU make manual 
-[http://www.gnu.org/software/make/manual/make.html](http://www.gnu.org/software/make/manual/make.html)
 
 ## Use case: [maker](https://github.com/computationalproteomicsunit/maker) - a `Makefile` for `R` packages
 
@@ -183,3 +166,15 @@ Version:
  8a2b59a [2014-10-13 12:08:55 +0200]
 ```
 
+## Makefile references
+
+- [Karl Broman's minimal make tutorial](http://kbroman.org/minimal_make/)
+
+- Further reading: 
+[http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html](http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html)
+
+- Managing Projects with GNU Make 
+[http://oreilly.com/catalog/make3/book/index.csp](http://oreilly.com/catalog/make3/book/index.csp)
+
+- The GNU make manual 
+[http://www.gnu.org/software/make/manual/make.html](http://www.gnu.org/software/make/manual/make.html)
