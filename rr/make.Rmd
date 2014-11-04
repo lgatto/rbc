@@ -111,6 +111,8 @@ sim2.dat: params.R simulation.R
 
 ## Makefile references
 
+- [Karl Broman's minimal make tutorial](http://kbroman.org/minimal_make/)
+
 - Further reading: 
 [http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html](http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html)
 
