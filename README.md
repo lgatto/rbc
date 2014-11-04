@@ -110,11 +110,11 @@ the content will be made available here.
 | When          | What                                           |     |
 |---------------|------------------------------------------------|-----|
 | 8:30          | Setup and welcome                              | LG  |
-| 9:00 - 10:30  | [Introduction, background](./Roo/roo.pdf)      | RS  |
+| 9:00 - 10:30  | [Introduction, background](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/Roo/roo.pdf) | RS  |
 |               | Break                                          |     |
-| 11:00 - 12:30 | OO programming                                 | RS  |
+| 11:00 - 12:30 | [OO programming](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/Roo/roo.pdf) | RS  |
 |               | Lunch                                          |     |
-| 14:00 - 15:30 | Package development                            | RS  |
+| 14:00 - 15:30 | [Package development](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/RPackageDevelopment/rpd.pdf) | RS  |
 |               | Break                                          |     |
 | 16:00 - 16:30 | Vectorisation and functional programming       | LG  |
 | 16:30 - 16:45 | Intro to git/gitub (with applications on day 2)| LG  |
