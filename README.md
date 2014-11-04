@@ -1,84 +1,6 @@
 Advanced R boot camp
 =====
 
-# Logistics
-
-- Where: University of Zurich
-- When: November 6th/7th 2014 (Thu/Fri)
-- main page: http://lgatto.github.io/2014-11-06-UZH/
-- Registration: https://www.eventbrite.com/e/zurich-software-carpentry-advanced-r-bootcamp-registration-12334106645
-
-- Instructors: Laurent Gatto and Robert Stojnic (Cambridge).
-- With help from Frank Pennekamp (Zurich), Peter Fields (Basel) and
-  Jelena Aleksic (Cambridge).
-
-- etherpad: https://etherpad.mozilla.org/2Idlzt0luX
-
-## Pre-requisites
-
-- Active knowledge of `R`. We will assume that you are familiar with
-  common data structures, general programming concepts and how to
-  write functions.
-
-- Familiarity with basic `shell`. 
-
-
-## Setup
-
-- A virtual machine, or 
-
-- A laptop with a recent R (>= 3.1.1), including developer tools (for
-  Windows, this means
-  [Rtools](http://cran.r-project.org/bin/windows/Rtools/)). See
-  [here](https://github.com/lgatto/TeachingMaterial/wiki) for
-  installation details.
-
-- To test your R installation, try the following
-
-```r
-## If you don't have devtools
-install.packages("devtools")
-
-library("devtools")
-install_github("lgatto/sequences")
-```
-
-- If you do not have any favourite editor, have a go with
-  [Rstudio](http://www.rstudio.com/products/rstudio/).
-
-- Working `shell`, `make` and `git` installations. See the
-  [setup section](http://sje30.github.io/2014-01-07-cam/) document for
-  some hints. Windows has proved to be a bit temperamental. Don't
-  hesitate to get in touch if you have issues with your installation.
-
-- See also [here](http://lgatto.github.io/2014-11-06-UZH/) for
-  installation instructions.
-
-### A note on `git` and OSX 10.8
-
-Incompatibilities have been reported. To test if you are affected, do
-the following in a terminal:
-
-```sh
-git --version ## should work
-git init . ## may fail
-```
-
-Possible fixes:
-
-- http://stackoverflow.com/questions/22920497/git-mountain-lion-dyld-lazy-symbol-binding-failed-symbol-not-found-str
-- Try using the git-osx-installer 1.8.4.2 found here:
-https://code.google.com/p/git-osx-installer/downloads/detail?name=git-1.8.4.2-intel-universal-snow-leopard.dmg&can=2&q=
-- If it does not work or you get an error with git v1.8.4.2, the
-second thing that helped was to install or update the command line
-tools using the command `xcode-select --install`:
-http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/
-- https://openhatch.org/wiki/Open_Source_Comes_to_Campus/Curriculum/Laptop_setup/OSX_git
-
-### More troubleshooting
-
-https://github.com/swcarpentry/bc/wiki/Configuration-Problems-and-Solutions
-
 ## Programme
 
 The aim of the workshop is to provide a set of tools to enable a more
@@ -140,6 +62,85 @@ the content will be made available here.
 Some material from earlier (similar) courses is available at:
 - Previous bootcamp: https://github.com/lgatto/rbc/tree/2014-01-07-CAM
 - Various teaching material: https://github.com/lgatto/teachingmaterial
+
+
+## Logistics
+
+- Where: University of Zurich
+- When: November 6th/7th 2014 (Thu/Fri)
+- main page: http://lgatto.github.io/2014-11-06-UZH/
+- Registration: https://www.eventbrite.com/e/zurich-software-carpentry-advanced-r-bootcamp-registration-12334106645
+
+- Instructors: Laurent Gatto and Robert Stojnic (Cambridge).
+- With help from Frank Pennekamp (Zurich), Peter Fields (Basel) and
+  Jelena Aleksic (Cambridge).
+
+- etherpad: https://etherpad.mozilla.org/2Idlzt0luX
+
+### Pre-requisites
+
+- Active knowledge of `R`. We will assume that you are familiar with
+  common data structures, general programming concepts and how to
+  write functions.
+
+- Familiarity with basic `shell`. 
+
+
+### Setup
+
+- A virtual machine, or 
+
+- A laptop with a recent R (>= 3.1.1), including developer tools (for
+  Windows, this means
+  [Rtools](http://cran.r-project.org/bin/windows/Rtools/)). See
+  [here](https://github.com/lgatto/TeachingMaterial/wiki) for
+  installation details.
+
+- To test your R installation, try the following
+
+```r
+## If you don't have devtools
+install.packages("devtools")
+
+library("devtools")
+install_github("lgatto/sequences")
+```
+
+- If you do not have any favourite editor, have a go with
+  [Rstudio](http://www.rstudio.com/products/rstudio/).
+
+- Working `shell`, `make` and `git` installations. See the
+  [setup section](http://sje30.github.io/2014-01-07-cam/) document for
+  some hints. Windows has proved to be a bit temperamental. Don't
+  hesitate to get in touch if you have issues with your installation.
+
+- See also [here](http://lgatto.github.io/2014-11-06-UZH/) for
+  installation instructions.
+
+### A note on `git` and OSX 10.8
+
+Incompatibilities have been reported. To test if you are affected, do
+the following in a terminal:
+
+```sh
+git --version ## should work
+git init . ## may fail
+```
+
+Possible fixes:
+
+- http://stackoverflow.com/questions/22920497/git-mountain-lion-dyld-lazy-symbol-binding-failed-symbol-not-found-str
+- Try using the git-osx-installer 1.8.4.2 found here:
+https://code.google.com/p/git-osx-installer/downloads/detail?name=git-1.8.4.2-intel-universal-snow-leopard.dmg&can=2&q=
+- If it does not work or you get an error with git v1.8.4.2, the
+second thing that helped was to install or update the command line
+tools using the command `xcode-select --install`:
+http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/
+- https://openhatch.org/wiki/Open_Source_Comes_to_Campus/Curriculum/Laptop_setup/OSX_git
+
+### More troubleshooting
+
+https://github.com/swcarpentry/bc/wiki/Configuration-Problems-and-Solutions
 
 <!--
 
