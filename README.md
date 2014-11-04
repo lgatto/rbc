@@ -116,8 +116,8 @@ the content will be made available here.
 |               | Lunch                                          |     |
 | 14:00 - 15:30 | [Package development](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/RPackageDevelopment/rpd.pdf) | RS  |
 |               | Break                                          |     |
-| 16:00 - 16:30 | Vectorisation and functional programming       | LG  |
-| 16:30 - 16:45 | Intro to git/gitub (with applications on day 2)| LG  |
+| 16:00 - 16:30 | [Vectorisation](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/R-vectorisation/vectorisation.pdf) and [functional programming](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/R-functional-programming/functional-programming.pdf) | LG  |
+| 16:30 - 16:45 | Intro to git/gitub (applications on day 2)     | LG  |
 | 16:45 - 17:00 | Wrap up                                        | all |
 
 ### Day 2
@@ -125,10 +125,10 @@ the content will be made available here.
 | When          | What                                      |     |
 |---------------|-------------------------------------------|-----|
 | 9:00 - 9:15   | Refresher day 1 and intro day 2           | LG  |
-| 9:15 - 10:00  | Unit testing and debugging                | LG  |
-| 10:00 - 10:30 | RR - reproducible documents and vignettes | LG  |
+| 9:15 - 10:00  | [debugging](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/R-debugging/debugging.pdf), [testing](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/R-debugging/testing.md) and [unit testing](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/R-debugging/unittesting.md)   | LG  |
+| 10:00 - 10:30 | RR - [reproducible documents and vignettes](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/rr/simple.md) | LG  |
 |               | Break                                     |     |
-| 11:00 - 12:30 | RR - automation and Makefiles             | LG  |
+| 11:00 - 12:30 | RR - [Automation and `Makefiles`](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/rr/make.md) | LG  |
 |               | Lunch                                     |     |
 | 14:00 - 14:45 | Profiling and optimisation                | LG  |
 | 14:45 - 15:30 | C/C++ and Rcpp                            | LG  |
