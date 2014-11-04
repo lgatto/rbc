@@ -1,6 +1,8 @@
 Benchamring, profiling and optimisation
 ===============
 
+
+
 ## Warning
 
 Knuth, Donald. /Structured Programming with `go to` Statements/, ACM
@@ -43,7 +45,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.001   0.000   0.002
+##   0.002   0.000   0.002
 ```
 
 
@@ -52,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.002 0.002 0.001 0.002
+## [1] 0.002 0.001 0.001 0.001 0.002
 ```
 
 
@@ -61,14 +63,6 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 
 ```r
 library("sequences")
-```
-
-```
-## Loading required package: Rcpp
-## This is package 'sequences'
-```
-
-```r
 gccount
 ```
 
@@ -97,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 26 23 18 33
+## [1] 24 25 19 32
 ```
 
 ```r
@@ -107,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 26 23 18 33
+## 24 25 19 32
 ```
 
 ```r
@@ -115,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 26 23 18 33
+## [1] 24 25 19 32
 ```
 
 But are they really the same?
@@ -132,10 +126,10 @@ microbenchmark(gccount(s),
 
 ```
 ## Unit: microseconds
-##          expr     min       lq       mean   median       uq      max neval
-##    gccount(s)   2.099   2.9230   4.656715   5.2490   5.5140   20.752 10000
-##   gccountr(s) 138.851 147.4620 160.524545 149.6980 154.0675 1935.326 10000
-##  gccountr2(s)  71.055  78.2815  84.994726  80.0415  82.2060 1809.859 10000
+##          expr     min       lq      mean   median      uq      max neval
+##    gccount(s)   2.044   2.8730   4.53493   5.1410   5.416   23.584 10000
+##   gccountr(s) 137.872 144.8000 155.98994 147.9390 152.268 2437.231 10000
+##  gccountr2(s)  72.384  77.1855  83.70820  79.0895  81.627 2294.996 10000
 ##  cld
 ##  a  
 ##    c
@@ -155,9 +149,9 @@ benchmark(replications = 1e4,
 
 ```
 ##           test elapsed replications
-## 3 gccountr2(s)   0.839        10000
-## 2  gccountr(s)   1.620        10000
-## 1   gccount(s)   0.052        10000
+## 3 gccountr2(s)   0.834        10000
+## 2  gccountr(s)   1.624        10000
+## 1   gccount(s)   0.050        10000
 ```
 
 ## Profiling 
@@ -240,7 +234,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x544ddf8>"
+## [1] "<0x3a81960>"
 ```
 
 ```r
@@ -248,8 +242,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x544ddf8 -> 0x4fd3290]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x4fd3290 -> 0x4fab048]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x3a81960 -> 0x35b4bc0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x35b4bc0 -> 0x357e568]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -261,7 +255,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x3478aa0>"
+## [1] "<0x27156a0>"
 ```
 
 ```r
@@ -271,7 +265,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x3478aa0 -> 0x32d4cc0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x27156a0 -> 0x25c0d18]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -353,7 +347,7 @@ f()
 ```
 
 ```
-## <environment: 0x4fc5698>
+## <environment: 0x351a5f8>
 ```
 
 ```r
@@ -373,7 +367,7 @@ e
 ```
 
 ```
-## <environment: 0x38a0880>
+## <environment: 0x2673e50>
 ```
 
 ```r

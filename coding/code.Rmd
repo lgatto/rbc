@@ -1,6 +1,10 @@
 Benchamring, profiling and optimisation
 ===============
 
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library("sequences"))
+```
+
 ## Warning
 
 Knuth, Donald. /Structured Programming with `go to` Statements/, ACM
