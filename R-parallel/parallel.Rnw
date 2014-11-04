@@ -1,0 +1,162 @@
+\documentclass{beamer}
+
+\usefonttheme[onlylarge]{structurebold}
+\usepackage{underscore}
+
+
+\usepackage{ulem}
+\usepackage{colortbl}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+
+%% new commande
+\let\code=\texttt
+\let\proglang=\textsf
+
+\newcommand{\R}{\texttt{R}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+
+\newcommand{\comments}[1]{}
+
+
+\title[] 
+{
+  Parallel computation in \R
+}
+
+\author[Stojnic and Gatto]
+{
+  Robert~Stojnic \url{rs550@cam.ac.uk} \\
+  Laurent~Gatto \url{lg390@cam.ac.uk} \\
+}
+
+
+\begin{document}
+
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+
+\section{Parallel computation}
+
+\begin{frame}{Parallel execution}
+\begin{block}{Introduction}
+  \begin{itemize}
+  \item Applicable when repeating \textit{independent} computations a certain number of times; 
+    results just need to be combined after parallel executions are done. 
+  \item A cluster of nodes: generate multiple workers listening to the master; 
+    these workers are new processes that can run on the current machine or a 
+    similar one with an identical R installation. Should work on all \R~plateforms 
+    (as in package \Rpackage{snow}).
+  \item The \R~process is \textit{forked} to create new \R~processes by taking a 
+    complete copy of the masters process, including workspace 
+    (pioneered by package \Rpackage{multicore}). Does not work on Windows.
+  \item Grid computing.
+  \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Parallel execution}
+\begin{block}{Packages}
+  \begin{itemize}
+    \item Package \Rpackage{parallel}, first included in \R~2.14.0 builds on CRAN 
+      packages \Rpackage{multicore} and \Rpackage{snow}. 
+    \item Package \Rpackage{foreach}, introducing a new looping construct supporting 
+      parallel execution. Natural choice to parallelise a \texttt{for} loop.  
+  \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{\Rpackage{parallel} example}
+  \begin{block}{Dropin replacement for \Rfunction{*apply} functions}
+    \begin{itemize}
+    \item \Rfunction{mclapply(X, FUN, ...)} (adapted from \Rpackage{multicore}).
+    \item \Rfunction{parLapply(cl, X, FUN, ...)} (adapted from \Rpackage{snow}).
+    \end{itemize}
+  \end{block}
+  (demonstration)
+\end{frame}
+
+\begin{frame}[fragile]{\Rpackage{foreach} example}
+
+<<eval=FALSE>>=
+library(doMC)
+library(foreach)
+registerDoMC(2)
+foreach(i = ll) %dopar% f(i)
+foreach(i = ll) %do% f(i) ## serial version
+
+library(plyr)
+llply(ll, f, .parallel=TRUE)
+@
+
+(demonstration)
+\end{frame}
+
+\begin{frame}[fragile]{In Bioconductor}
+  \begin{block}{BiocParallel}
+    This package provides modified versions and novel implementation 
+    of functions for parallel evaluation, tailored to use with 
+    Bioconductor objects. 
+  \end{block}
+<<bp, echo = TRUE, eval = TRUE, cache=TRUE>>=
+library("BiocParallel")
+
+ll <- replicate(8, matrix(rnorm(1e6),1000),
+                simplify=FALSE)
+f <- function(x) mean(solve(x), trim=0.7)
+
+res <- bplapply(ll, f) ## will use the default parallel backend
+unlist(res)
+@ 
+\end{frame}
+
+<<echo=FALSE>>=
+library("BiocParallel")
+@
+
+\begin{frame}[fragile]
+<<size='scriptsize'>>=
+MulticoreParam()
+
+SnowParam()
+
+SnowParam(type = "MPI")
+
+SerialParam()
+@
+\end{frame}
+
+\begin{frame}[fragile]
+<<>>=
+p <- MulticoreParam(2L)
+unlist(bplapply(ll, f, BPPARAM=p))
+
+p <- SnowParam(4L)
+unlist(bplapply(ll, f, BPPARAM=p))
+@
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% section                                                     %% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{References}
+
+\begin{frame}{References}
+  \begin{block}{Further reading}
+    \begin{itemize}
+    \item Parallel R, McCallum and Weston, O'Reilly (2011).
+    \item \Rpackage{parallel} and \Rpackage{foreach} vignettes.
+    \item \textit{High Performance Computing} CRAN task view.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\end{document}
