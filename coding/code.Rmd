@@ -138,7 +138,7 @@ shine(x)
 
 Memory usage using `tracemem` (requires to build `R` with `--enable-memory-profiling`)
 
-```{r}
+```{r, message = FALSE}
 library(sequences)
 (a <- new("DnaSeq", sequence = "GCATCAGCAGCT"))
 tracemem(a)
@@ -155,7 +155,6 @@ y <- x
 x[1] <- 1L
 ## Only one copy of x
 x[1] <- 2L
-
 ```
 
 ## Object sizes

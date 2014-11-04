@@ -45,7 +45,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.002   0.000   0.002
+##   0.001   0.000   0.002
 ```
 
 
@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.001 0.001 0.001 0.001 0.002
+## [1] 0.002 0.002 0.002 0.002 0.001
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 22 24 26 28
+## [1] 24 33 25 18
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 22 24 26 28
+## 24 33 25 18
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 22 24 26 28
+## [1] 24 33 25 18
 ```
 
 But are they really the same? Are we really comparing the same
@@ -180,20 +180,22 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##                 self.time self.pct total.time total.pct
-## "evaluate_call"      0.02      100       0.02       100
+##             self.time self.pct total.time total.pct
+## "stopifnot"      0.02      100       0.02       100
 ## 
 ## $by.total
 ##                       total.time total.pct self.time self.pct
-## "evaluate_call"             0.02       100      0.02      100
+## "stopifnot"                 0.02       100      0.02      100
 ## "block_exec"                0.02       100      0.00        0
 ## "call_block"                0.02       100      0.00        0
 ## "evaluate"                  0.02       100      0.00        0
+## "evaluate_call"             0.02       100      0.00        0
 ## "in_dir"                    0.02       100      0.00        0
 ## "knit"                      0.02       100      0.00        0
 ## "process_file"              0.02       100      0.00        0
 ## "process_group"             0.02       100      0.00        0
 ## "process_group.block"       0.02       100      0.00        0
+## "set_hooks"                 0.02       100      0.00        0
 ## "withCallingHandlers"       0.02       100      0.00        0
 ## 
 ## $sample.interval
@@ -252,7 +254,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x59ed610>"
+## [1] "<0x4c482a8>"
 ```
 
 ```r
@@ -260,8 +262,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x59ed610 -> 0x4438938]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x4438938 -> 0x4333e98]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x4c482a8 -> 0x3535a90]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x3535a90 -> 0x350fcf8]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -273,7 +275,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x3f9e170>"
+## [1] "<0x315ea20>"
 ```
 
 ```r
@@ -283,7 +285,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x3f9e170 -> 0x3ee9920]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x315ea20 -> 0x31027c0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -365,7 +367,7 @@ f()
 ```
 
 ```
-## <environment: 0x5381ea0>
+## <environment: 0x45a2b90>
 ```
 
 ```r
@@ -385,7 +387,7 @@ e
 ```
 
 ```
-## <environment: 0x4d788a8>
+## <environment: 0x3f9ad58>
 ```
 
 ```r
