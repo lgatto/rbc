@@ -120,7 +120,7 @@ source(find_ex("read-delim.r"))
 wine <- find_ex("wine.csv")
 
 x <- lineprof(read_delim(wine, sep = ","), torture = TRUE)
-shine(x)
+shine(x) ## interactive visualisation
 ```
 
 ![lineprof visualisation](https://camo.githubusercontent.com/13db9bc3ece496863d05c528c1d729d1f630247c/687474703a2f2f692e696d6775722e636f6d2f6e53437471734d2e706e67)
@@ -138,8 +138,8 @@ shine(x)
 
 Memory usage using `tracemem` (requires to build `R` with `--enable-memory-profiling`)
 
-```{r, message = FALSE}
-library(sequences)
+```{r,}
+librarny(sequences)
 (a <- new("DnaSeq", sequence = "GCATCAGCAGCT"))
 tracemem(a)
 seq(a) <- "GATC"
@@ -169,8 +169,10 @@ print(object.size(rnorm(1000000)), units="auto")
 
 ## Calling foreign languages
 
-- Ris getting too slow or is not doing well in terms of memory management.
-- Implement the heavy stuff in `C`, `C++` (http://www.rcpp.org/), `Fortran` or  `Java` (http://www.rforge.net/rJava/).
+- R is getting too slow or is not doing well in terms of memory
+  management.
+- Implement the heavy stuff in `C`, `C++` (http://www.rcpp.org/),
+  `Fortran` or `Java` (http://www.rforge.net/rJava/).
 
 
 ### Other scripting languages
@@ -179,13 +181,11 @@ print(object.size(rnorm(1000000)), units="auto")
 
 - There is also the `system()` function for direct access to OS functions
 
-See C/C++ slides.
-
+See C/C++ slides for details.
 
 ## Parallel execution
 
-  See topic section.
-
+See [topic section](https://github.com/lgatto/rbc/tree/2014-11-06-Zurich/R-parallel).
 
 ## Environments
 

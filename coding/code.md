@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.002 0.002 0.002 0.001
+## [1] 0.002 0.002 0.001 0.002 0.002
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 24 33 25 18
+## [1] 25 18 29 28
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 24 33 25 18
+## 25 18 29 28
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 24 33 25 18
+## [1] 25 18 29 28
 ```
 
 But are they really the same? Are we really comparing the same
@@ -180,29 +180,18 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##             self.time self.pct total.time total.pct
-## "stopifnot"      0.02      100       0.02       100
+## [1] self.time  self.pct   total.time total.pct 
+## <0 rows> (or 0-length row.names)
 ## 
 ## $by.total
-##                       total.time total.pct self.time self.pct
-## "stopifnot"                 0.02       100      0.02      100
-## "block_exec"                0.02       100      0.00        0
-## "call_block"                0.02       100      0.00        0
-## "evaluate"                  0.02       100      0.00        0
-## "evaluate_call"             0.02       100      0.00        0
-## "in_dir"                    0.02       100      0.00        0
-## "knit"                      0.02       100      0.00        0
-## "process_file"              0.02       100      0.00        0
-## "process_group"             0.02       100      0.00        0
-## "process_group.block"       0.02       100      0.00        0
-## "set_hooks"                 0.02       100      0.00        0
-## "withCallingHandlers"       0.02       100      0.00        0
+## [1] total.time total.pct  self.time  self.pct  
+## <0 rows> (or 0-length row.names)
 ## 
 ## $sample.interval
 ## [1] 0.02
 ## 
 ## $sampling.time
-## [1] 0.02
+## [1] 0
 ```
 
 ### The `lineprof` package
@@ -217,7 +206,7 @@ source(find_ex("read-delim.r"))
 wine <- find_ex("wine.csv")
 
 x <- lineprof(read_delim(wine, sep = ","), torture = TRUE)
-shine(x)
+shine(x) ## interactive visualisation
 ```
 
 ![lineprof visualisation](https://camo.githubusercontent.com/13db9bc3ece496863d05c528c1d729d1f630247c/687474703a2f2f692e696d6775722e636f6d2f6e53437471734d2e706e67)
@@ -237,7 +226,14 @@ Memory usage using `tracemem` (requires to build `R` with `--enable-memory-profi
 
 
 ```r
-library(sequences)
+librarny(sequences)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "librarny"
+```
+
+```r
 (a <- new("DnaSeq", sequence = "GCATCAGCAGCT"))
 ```
 
@@ -254,7 +250,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x4c482a8>"
+## [1] "<0x3c50008>"
 ```
 
 ```r
@@ -262,8 +258,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x4c482a8 -> 0x3535a90]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x3535a90 -> 0x350fcf8]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x3c50008 -> 0x296fd48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x296fd48 -> 0x2949110]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -275,7 +271,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x315ea20>"
+## [1] "<0x24c2f40>"
 ```
 
 ```r
@@ -285,7 +281,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x315ea20 -> 0x31027c0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x24c2f40 -> 0x23ca4b8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -324,8 +320,10 @@ print(object.size(rnorm(1000000)), units="auto")
 
 ## Calling foreign languages
 
-- Ris getting too slow or is not doing well in terms of memory management.
-- Implement the heavy stuff in `C`, `C++` (http://www.rcpp.org/), `Fortran` or  `Java` (http://www.rforge.net/rJava/).
+- R is getting too slow or is not doing well in terms of memory
+  management.
+- Implement the heavy stuff in `C`, `C++` (http://www.rcpp.org/),
+  `Fortran` or `Java` (http://www.rforge.net/rJava/).
 
 
 ### Other scripting languages
@@ -334,13 +332,11 @@ print(object.size(rnorm(1000000)), units="auto")
 
 - There is also the `system()` function for direct access to OS functions
 
-See C/C++ slides.
-
+See C/C++ slides for details.
 
 ## Parallel execution
 
-  See topic section.
-
+See [topic section](https://github.com/lgatto/rbc/tree/2014-11-06-Zurich/R-parallel).
 
 ## Environments
 
@@ -367,7 +363,7 @@ f()
 ```
 
 ```
-## <environment: 0x45a2b90>
+## <environment: 0x3681590>
 ```
 
 ```r
@@ -387,7 +383,7 @@ e
 ```
 
 ```
-## <environment: 0x3f9ad58>
+## <environment: 0x307b530>
 ```
 
 ```r
