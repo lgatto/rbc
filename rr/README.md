@@ -8,7 +8,7 @@ advocate RR:
   actual scholarship is the complete software development environment
   and that complete set of instructions that generated the figures."
 
-We use [vignettes](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/rr/simple.md)
+We use [vignettes](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/rr/simple.md).
 
 To facilitate reproducibility, we also want automation using
 [make](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/rr/make.md).
