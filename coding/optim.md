@@ -47,7 +47,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.002   0.000   0.002
+##   0.001   0.000   0.001
 ```
 
 
@@ -56,7 +56,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.002 0.002 0.002 0.002
+## [1] 0.002 0.002 0.001 0.001 0.002
 ```
 
 
@@ -90,6 +90,17 @@ $sampling.time
 ### [`lineprof`](https://github.com/hadley/lineprof)
 
 
+```r
+library(lineprof)
+source(find_ex("read-delim.r"))
+wine <- find_ex("wine.csv")
+
+x <- lineprof(read_delim(wine, sep = ","), torture = TRUE)
+shine(x)
+```
+
+![lineprof visualisation](https://camo.githubusercontent.com/13db9bc3ece496863d05c528c1d729d1f630247c/687474703a2f2f692e696d6775722e636f6d2f6e53437471734d2e706e67)
+
 ## Memory profiling
 
 
@@ -122,7 +133,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x3738cb0>"
+## [1] "<0x23eec98>"
 ```
 
 ```r
@@ -130,8 +141,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x3738cb0 -> 0x2906a38]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x2906a38 -> 0x28b6420]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x23eec98 -> 0x3b4e1d8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x3b4e1d8 -> 0x3b9f3d0]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -143,7 +154,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x1900f38>"
+## [1] "<0x38b0540>"
 ```
 
 ```r
@@ -153,7 +164,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x1900f38 -> 0x2d19978]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x38b0540 -> 0x37625a0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -197,8 +208,8 @@ print(object.size(rnorm(1000000)), units="auto")
 
 
 ### Other scripting languages
-- R/Perl: http://www.omegahat.org/RSPerl/}} and 
-- R/Python: http://www.omegahat.org/RSPython/}} bidirectional interfaces
+- R/Perl: http://www.omegahat.org/RSPerl/ and 
+- R/Python: http://www.omegahat.org/RSPython/ bidirectional interfaces
 
 - There is also the `system()` function for direct access to OS functions
 
@@ -235,7 +246,7 @@ f()
 ```
 
 ```
-## <environment: 0x2f77538>
+## <environment: 0x35baca8>
 ```
 
 ```r
@@ -255,7 +266,7 @@ e
 ```
 
 ```
-## <environment: 0x3bb44c0>
+## <environment: 0x45d7390>
 ```
 
 ```r
