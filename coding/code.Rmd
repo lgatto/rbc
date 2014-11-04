@@ -237,17 +237,20 @@ This is used in the `eSet` et al. microarray data structures to store the expres
 
 - [CRAN High-Performance and Parallel Computing task view](http://cran.r-project.org/web/views/HighPerformanceComputing.html).
 - Storing data in database or databases-like structures: `RMySQL`,
-      `RdbiPgSQL`, \ldots, `RSQLite`, `qldf`, `data.table`, `dplyr`,
-      ... packages.
+      `RdbiPgSQL`, \ldots, `RSQLite`, `qldf`, `data.table` (the
+      `data.table::fread`, when `read.table` is slow, also `scan`),
+      `dplyr`, ... packages
 - The `ff` package by Adler et al. offers file-based access to data
   sets that are too large to be loaded into memory, along with a
-  number of higher-level functions.
+  number of higher-level functions
 - The `bigmemory` package by Kane and Emerson permits storing large
   objects such as matrices in memory (as well as via files) and uses
-  `external pointer` objects to refer to them.
-- `netCDF` data files: `ncdf` and `RNetCDF` packages.
-- `hdf5` format: `rhdf5` package.
-- hadoop
+  `external pointer` objects to refer to them
+- `netCDF` data files: `ncdf` and `RNetCDF` packages
+- `hdf5` format: `rhdf5` package
+- `mmap` memory-mapped files/devices I/O
+- hadoop and R
+- See http://r-pbd.org/ and the
+  [[http://cran.r-project.org/web/packages/pbdDEMO/][pbdDemo]]
+  package/vignette
 - ...
-
-

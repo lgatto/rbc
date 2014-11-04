@@ -45,7 +45,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.001   0.000   0.002
+##   0.002   0.000   0.002
 ```
 
 
@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.002 0.001 0.002 0.002
+## [1] 0.002 0.001 0.001 0.002 0.002
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 25 18 29 28
+## [1] 29 24 29 18
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 25 18 29 28
+## 29 24 29 18
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 25 18 29 28
+## [1] 29 24 29 18
 ```
 
 But are they really the same? Are we really comparing the same
@@ -128,14 +128,14 @@ print(mb)
 
 ```
 ## Unit: microseconds
-##          expr     min       lq       mean   median       uq       max
-##    gccount(s)   2.074   2.8680   4.628888   5.2390   5.5180    32.680
-##   gccountr(s) 137.416 143.5740 158.881456 146.9930 152.5725 43618.976
-##  gccountr2(s)  71.933  76.7245  82.133342  78.7375  81.4075  1848.127
-##  neval cld
-##  10000 a  
-##  10000   c
-##  10000  b
+##          expr     min       lq       mean   median      uq       max neval
+##    gccount(s)   2.084   2.9425   4.789972   5.1965   5.449    87.456 10000
+##   gccountr(s) 136.025 141.6960 162.794810 143.9790 148.906 47597.697 10000
+##  gccountr2(s)  70.581  75.1600  83.189154  76.8205  79.493  1706.392 10000
+##  cld
+##  a  
+##    c
+##   b
 ```
 
 
@@ -144,10 +144,7 @@ library("ggplot2")
 autoplot(mb)
 ```
 
-```
-## Error: Objects of type microbenchmark not supported by autoplot.  Please use qplot() or ggplot() instead.
-## Objects of type data.frame not supported by autoplot.  Please use qplot() or ggplot() instead.
-```
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
 
 ```r
@@ -162,9 +159,9 @@ benchmark(replications = 1e4,
 
 ```
 ##           test elapsed replications
-## 3 gccountr2(s)   0.840        10000
+## 3 gccountr2(s)   0.880        10000
 ## 2  gccountr(s)   1.586        10000
-## 1   gccount(s)   0.051        10000
+## 1   gccount(s)   0.053        10000
 ```
 
 ## Profiling 
@@ -180,18 +177,35 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-## [1] self.time  self.pct   total.time total.pct 
-## <0 rows> (or 0-length row.names)
+##         self.time self.pct total.time total.pct
+## "match"      0.02      100       0.02       100
 ## 
 ## $by.total
-## [1] total.time total.pct  self.time  self.pct  
-## <0 rows> (or 0-length row.names)
+##                       total.time total.pct self.time self.pct
+## "match"                     0.02       100      0.02      100
+## "block_exec"                0.02       100      0.00        0
+## "call_block"                0.02       100      0.00        0
+## "deparse"                   0.02       100      0.00        0
+## ".deparseOpts"              0.02       100      0.00        0
+## "eval"                      0.02       100      0.00        0
+## "evaluate"                  0.02       100      0.00        0
+## "evaluate_call"             0.02       100      0.00        0
+## "%in%"                      0.02       100      0.00        0
+## "in_dir"                    0.02       100      0.00        0
+## "knit"                      0.02       100      0.00        0
+## "match.arg"                 0.02       100      0.00        0
+## "process_file"              0.02       100      0.00        0
+## "process_group"             0.02       100      0.00        0
+## "process_group.block"       0.02       100      0.00        0
+## "setHook"                   0.02       100      0.00        0
+## "set_hooks"                 0.02       100      0.00        0
+## "withCallingHandlers"       0.02       100      0.00        0
 ## 
 ## $sample.interval
 ## [1] 0.02
 ## 
 ## $sampling.time
-## [1] 0
+## [1] 0.02
 ```
 
 ### The `lineprof` package
@@ -250,7 +264,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x3c50008>"
+## [1] "<0x26e0498>"
 ```
 
 ```r
@@ -258,8 +272,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x3c50008 -> 0x296fd48]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x296fd48 -> 0x2949110]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x26e0498 -> 0x5c33958]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x5c33958 -> 0x5fa8368]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -271,7 +285,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x24c2f40>"
+## [1] "<0x55a1a20>"
 ```
 
 ```r
@@ -281,7 +295,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x24c2f40 -> 0x23ca4b8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x55a1a20 -> 0x4ca2e68]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -363,7 +377,7 @@ f()
 ```
 
 ```
-## <environment: 0x3681590>
+## <environment: 0x5296710>
 ```
 
 ```r
@@ -383,7 +397,7 @@ e
 ```
 
 ```
-## <environment: 0x307b530>
+## <environment: 0x575f658>
 ```
 
 ```r
@@ -431,17 +445,20 @@ This is used in the `eSet` et al. microarray data structures to store the expres
 
 - [CRAN High-Performance and Parallel Computing task view](http://cran.r-project.org/web/views/HighPerformanceComputing.html).
 - Storing data in database or databases-like structures: `RMySQL`,
-      `RdbiPgSQL`, \ldots, `RSQLite`, `qldf`, `data.table`, `dplyr`,
-      ... packages.
+      `RdbiPgSQL`, \ldots, `RSQLite`, `qldf`, `data.table` (the
+      `data.table::fread`, when `read.table` is slow, also `scan`),
+      `dplyr`, ... packages
 - The `ff` package by Adler et al. offers file-based access to data
   sets that are too large to be loaded into memory, along with a
-  number of higher-level functions.
+  number of higher-level functions
 - The `bigmemory` package by Kane and Emerson permits storing large
   objects such as matrices in memory (as well as via files) and uses
-  `external pointer` objects to refer to them.
-- `netCDF` data files: `ncdf` and `RNetCDF` packages.
-- `hdf5` format: `rhdf5` package.
-- hadoop
+  `external pointer` objects to refer to them
+- `netCDF` data files: `ncdf` and `RNetCDF` packages
+- `hdf5` format: `rhdf5` package
+- `mmap` memory-mapped files/devices I/O
+- hadoop and R
+- See http://r-pbd.org/ and the
+  [[http://cran.r-project.org/web/packages/pbdDEMO/][pbdDemo]]
+  package/vignette
 - ...
-
-
