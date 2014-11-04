@@ -33,11 +33,7 @@ about R's built-in C interfaces:
 (`Rcpp` does make some of the above caution statements slightly less
 critical.)
 
-## Benchmarking
-
-TODO
-
-## Profiling 
+## Timing
 
 
 ```r
@@ -47,7 +43,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.002   0.000   0.002
+##   0.001   0.000   0.002
 ```
 
 
@@ -56,14 +52,122 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.002 0.001 0.001 0.002
+## [1] 0.002 0.002 0.002 0.001 0.002
 ```
+
+
+## Benchmarking
+
+
+```r
+library("sequences")
+```
+
+```
+## Loading required package: Rcpp
+## This is package 'sequences'
+```
+
+```r
+gccount
+```
+
+```
+## function (inseq) 
+## {
+##     .Call("gccount", inseq, PACKAGE = "sequences")
+## }
+## <environment: namespace:sequences>
+```
+
+```r
+gccountr <- function(x) table(strsplit(x, "")[[1]])
+gccountr2 <- function(x) tabulate(factor(strsplit(x, "")[[1]]))
+```
+
+Checking that our different implementations give the same results:
+
+
+```r
+s <- paste(sample(c("A", "C", "G", "T"),
+                  100, replace = TRUE),
+           collapse = "")
+
+gccount(s)
+```
+
+```
+## [1] 26 23 18 33
+```
+
+```r
+gccountr(s)
+```
+
+```
+## 
+##  A  C  G  T 
+## 26 23 18 33
+```
+
+```r
+gccountr2(s)
+```
+
+```
+## [1] 26 23 18 33
+```
+
+But are they really the same?
+
+
+```r
+library("microbenchmark")
+
+microbenchmark(gccount(s),
+               gccountr(s),
+               gccountr2(s),
+               times = 1e4)
+```
+
+```
+## Unit: microseconds
+##          expr     min       lq       mean   median       uq      max neval
+##    gccount(s)   2.099   2.9230   4.656715   5.2490   5.5140   20.752 10000
+##   gccountr(s) 138.851 147.4620 160.524545 149.6980 154.0675 1935.326 10000
+##  gccountr2(s)  71.055  78.2815  84.994726  80.0415  82.2060 1809.859 10000
+##  cld
+##  a  
+##    c
+##   b
+```
+
+
+```r
+library("rbenchmark")
+
+benchmark(replications = 1e4,
+          gccount(s),
+          gccountr(s),
+          gccountr2(s),
+          columns=c('test', 'elapsed', 'replications'))          
+```
+
+```
+##           test elapsed replications
+## 3 gccountr2(s)   0.839        10000
+## 2  gccountr(s)   1.620        10000
+## 1   gccount(s)   0.052        10000
+```
+
+## Profiling 
 
 
 ```
 > Rprof("rprof")
-> res <- apply(m,1,mean,trim=.3)
-> Rprof(NULL); summaryRprof("rprof")
+> res <- apply(m, 1, mean, trim=.3)
+> Rprof(NULL)
+> summaryRprof("rprof")
 $by.self
                  self.time self.pct total.time total.pct
 "mean.default"        0.02    33.33       0.06    100.00
@@ -87,7 +191,10 @@ $sampling.time
 [1] 0.06
 ```
 
-### [`lineprof`](https://github.com/hadley/lineprof)
+### The `lineprof` package
+
+The example below is from the
+[`lineprof`](https://github.com/hadley/lineprof) github repo.
 
 
 ```r
@@ -101,6 +208,14 @@ shine(x)
 
 ![lineprof visualisation](https://camo.githubusercontent.com/13db9bc3ece496863d05c528c1d729d1f630247c/687474703a2f2f692e696d6775722e636f6d2f6e53437471734d2e706e67)
 
+`lineprof` displays five variables for each line of code:
+
+- `t`: the amount of time spent on that line (in seconds)
+- `r`, `a`: the amount of memory released and allocated (in
+  megabytes). The assignment of memory release to a line of is not
+  deterministic because it occurs only when `gc` is triggered.
+- `d`: the number of duplicates
+
 ## Memory profiling
 
 
@@ -109,14 +224,6 @@ Memory usage using `tracemem` (requires to build `R` with `--enable-memory-profi
 
 ```r
 library(sequences)
-```
-
-```
-## Loading required package: Rcpp
-## This is package 'sequences'
-```
-
-```r
 (a <- new("DnaSeq", sequence = "GCATCAGCAGCT"))
 ```
 
@@ -133,7 +240,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x1b91c98>"
+## [1] "<0x544ddf8>"
 ```
 
 ```r
@@ -141,8 +248,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x1b91c98 -> 0x32f0268]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x32f0268 -> 0x3340fa0]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x544ddf8 -> 0x4fd3290]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x4fd3290 -> 0x4fab048]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -154,7 +261,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x3052c80>"
+## [1] "<0x3478aa0>"
 ```
 
 ```r
@@ -164,7 +271,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x3052c80 -> 0x2ef2988]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x3478aa0 -> 0x32d4cc0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -246,7 +353,7 @@ f()
 ```
 
 ```
-## <environment: 0x2d5dca8>
+## <environment: 0x4fc5698>
 ```
 
 ```r
@@ -266,7 +373,7 @@ e
 ```
 
 ```
-## <environment: 0x3d7bd30>
+## <environment: 0x38a0880>
 ```
 
 ```r
