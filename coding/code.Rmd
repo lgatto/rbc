@@ -3,6 +3,7 @@ Benchamring, profiling and optimisation
 
 ```{r, echo=FALSE}
 suppressPackageStartupMessages(library("sequences"))
+suppressPackageStartupMessages(library("ggplot2"))
 ```
 
 ## Warning
@@ -75,10 +76,16 @@ But are they really the same?
 ```{r, cache = TRUE}
 library("microbenchmark")
 
-microbenchmark(gccount(s),
-               gccountr(s),
-               gccountr2(s),
-               times = 1e4)
+mb <- microbenchmark(gccount(s),
+                     gccountr(s),
+                     gccountr2(s),
+                     times = 1e4)
+print(mb)
+```
+
+```{r}
+library("ggplot2")
+autoplot(mb)
 ```
 
 ```{r, cache=TRUE}

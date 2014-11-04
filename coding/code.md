@@ -45,7 +45,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.002   0.000   0.002
+##   0.001   0.000   0.001
 ```
 
 
@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.001 0.001 0.001 0.002
+## [1] 0.002 0.001 0.001 0.002 0.002
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 24 25 19 32
+## [1] 21 25 28 26
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 24 25 19 32
+## 21 25 28 26
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 24 25 19 32
+## [1] 21 25 28 26
 ```
 
 But are they really the same?
@@ -118,23 +118,32 @@ But are they really the same?
 ```r
 library("microbenchmark")
 
-microbenchmark(gccount(s),
-               gccountr(s),
-               gccountr2(s),
-               times = 1e4)
+mb <- microbenchmark(gccount(s),
+                     gccountr(s),
+                     gccountr2(s),
+                     times = 1e4)
+print(mb)
 ```
 
 ```
 ## Unit: microseconds
-##          expr     min       lq      mean   median      uq      max neval
-##    gccount(s)   2.044   2.8730   4.53493   5.1410   5.416   23.584 10000
-##   gccountr(s) 137.872 144.8000 155.98994 147.9390 152.268 2437.231 10000
-##  gccountr2(s)  72.384  77.1855  83.70820  79.0895  81.627 2294.996 10000
-##  cld
-##  a  
-##    c
-##   b
+##          expr     min       lq       mean   median       uq       max
+##    gccount(s)   2.074   2.8680   4.628888   5.2390   5.5180    32.680
+##   gccountr(s) 137.416 143.5740 158.881456 146.9930 152.5725 43618.976
+##  gccountr2(s)  71.933  76.7245  82.133342  78.7375  81.4075  1848.127
+##  neval cld
+##  10000 a  
+##  10000   c
+##  10000  b
 ```
+
+
+```r
+library("ggplot2")
+autoplot(mb)
+```
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
 
 ```r
@@ -149,9 +158,9 @@ benchmark(replications = 1e4,
 
 ```
 ##           test elapsed replications
-## 3 gccountr2(s)   0.834        10000
-## 2  gccountr(s)   1.624        10000
-## 1   gccount(s)   0.050        10000
+## 3 gccountr2(s)   0.840        10000
+## 2  gccountr(s)   1.586        10000
+## 1   gccount(s)   0.051        10000
 ```
 
 ## Profiling 
@@ -234,7 +243,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x3a81960>"
+## [1] "<0x5647dc0>"
 ```
 
 ```r
@@ -242,8 +251,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x3a81960 -> 0x35b4bc0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x35b4bc0 -> 0x357e568]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x5647dc0 -> 0x57afb90]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x57afb90 -> 0x5619a90]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -255,7 +264,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x27156a0>"
+## [1] "<0x414a028>"
 ```
 
 ```r
@@ -265,7 +274,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x27156a0 -> 0x25c0d18]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x414a028 -> 0x3fcdc10]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -347,7 +356,7 @@ f()
 ```
 
 ```
-## <environment: 0x351a5f8>
+## <environment: 0x499f080>
 ```
 
 ```r
@@ -367,7 +376,7 @@ e
 ```
 
 ```
-## <environment: 0x2673e50>
+## <environment: 0x3b857f8>
 ```
 
 ```r
