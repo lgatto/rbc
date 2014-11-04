@@ -84,14 +84,14 @@ clean:
 ```
 
 
-|------------|---------------------------------------|
+
 | command    | action                                |
 |------------|---------------------------------------|
 | make       | check first rule                      |
 | make all   | rebuild everything                    |
 | make clean | remove files that can be rebuilt      |
 | touch file | update timestamp, preserving contents |
-|------------|---------------------------------------|
+
 
 
 ## Makefile: next steps
@@ -112,15 +112,15 @@ sim2.dat: params.R simulation.R
 ## Makefile references
 
 - Further reading: 
-[[http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html][http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html]]
+[http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html](http://linuxdevcenter.com/pub/a/linux/2002/01/31/make_intro.html)
 
 - Managing Projects with GNU Make 
-[[http://oreilly.com/catalog/make3/book/index.csp][http://oreilly.com/catalog/make3/book/index.csp]]
+[http://oreilly.com/catalog/make3/book/index.csp](http://oreilly.com/catalog/make3/book/index.csp)
 
 - The GNU make manual 
-[[http://www.gnu.org/software/make/manual/make.html][http://www.gnu.org/software/make/manual/make.html]]
+[http://www.gnu.org/software/make/manual/make.html](http://www.gnu.org/software/make/manual/make.html)
 
-# Use case: [maker](https://github.com/computationalproteomicsunit/maker) - a `Makefile` for `R` packages
+## Use case: [maker](https://github.com/computationalproteomicsunit/maker) - a `Makefile` for `R` packages
 
 ```
 Usage:
