@@ -55,7 +55,7 @@ the content will be made available here.
 | 14:00 - 14:45 | Profiling and optimisation                | LG  |
 | 14:45 - 15:30 | C/C++ and Rcpp                            | LG  |
 |               | Break                                     |     |
-| 16:00 - 16:40 | Parallel processing                       | LG  |
+| 16:00 - 16:40 | [Parallel processing](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/R-parallel/parallel.pdf) [src](https://github.com/lgatto/rbc/tree/2014-11-06-Zurich/R-parallel/src)    | LG  |
 | 16:40 - 17:00 | Wrap up, feedback                         | all |
 
 
