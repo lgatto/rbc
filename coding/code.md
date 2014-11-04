@@ -45,7 +45,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.001   0.000   0.001
+##   0.002   0.000   0.002
 ```
 
 
@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.001 0.001 0.002 0.002
+## [1] 0.001 0.001 0.001 0.001 0.002
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 21 25 28 26
+## [1] 22 24 26 28
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 21 25 28 26
+## 22 24 26 28
 ```
 
 ```r
@@ -109,10 +109,11 @@ gccountr2(s)
 ```
 
 ```
-## [1] 21 25 28 26
+## [1] 22 24 26 28
 ```
 
-But are they really the same?
+But are they really the same? Are we really comparing the same
+functionalities?
 
 
 ```r
@@ -143,7 +144,10 @@ library("ggplot2")
 autoplot(mb)
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
+```
+## Error: Objects of type microbenchmark not supported by autoplot.  Please use qplot() or ggplot() instead.
+## Objects of type data.frame not supported by autoplot.  Please use qplot() or ggplot() instead.
+```
 
 
 ```r
@@ -166,32 +170,37 @@ benchmark(replications = 1e4,
 ## Profiling 
 
 
+
+```r
+Rprof("rprof")
+res <- apply(m, 1, mean, trim=.3)
+Rprof(NULL)
+summaryRprof("rprof")
 ```
-> Rprof("rprof")
-> res <- apply(m, 1, mean, trim=.3)
-> Rprof(NULL)
-> summaryRprof("rprof")
-$by.self
-                 self.time self.pct total.time total.pct
-"mean.default"        0.02    33.33       0.06    100.00
-"any"                 0.02    33.33       0.02     33.33
-"unique.default"      0.02    33.33       0.02     33.33
 
-$by.total
-                 total.time total.pct self.time self.pct
-"mean.default"         0.06    100.00      0.02    33.33
-"apply"                0.06    100.00      0.00     0.00
-"FUN"                  0.06    100.00      0.00     0.00
-"any"                  0.02     33.33      0.02    33.33
-"unique.default"       0.02     33.33      0.02    33.33
-"sort.int"             0.02     33.33      0.00     0.00
-"unique"               0.02     33.33      0.00     0.00
-
-$sample.interval
-[1] 0.02
-
-$sampling.time
-[1] 0.06
+```
+## $by.self
+##                 self.time self.pct total.time total.pct
+## "evaluate_call"      0.02      100       0.02       100
+## 
+## $by.total
+##                       total.time total.pct self.time self.pct
+## "evaluate_call"             0.02       100      0.02      100
+## "block_exec"                0.02       100      0.00        0
+## "call_block"                0.02       100      0.00        0
+## "evaluate"                  0.02       100      0.00        0
+## "in_dir"                    0.02       100      0.00        0
+## "knit"                      0.02       100      0.00        0
+## "process_file"              0.02       100      0.00        0
+## "process_group"             0.02       100      0.00        0
+## "process_group.block"       0.02       100      0.00        0
+## "withCallingHandlers"       0.02       100      0.00        0
+## 
+## $sample.interval
+## [1] 0.02
+## 
+## $sampling.time
+## [1] 0.02
 ```
 
 ### The `lineprof` package
@@ -243,7 +252,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x5647dc0>"
+## [1] "<0x59ed610>"
 ```
 
 ```r
@@ -251,8 +260,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x5647dc0 -> 0x57afb90]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x57afb90 -> 0x5619a90]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x59ed610 -> 0x4438938]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x4438938 -> 0x4333e98]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -264,7 +273,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x414a028>"
+## [1] "<0x3f9e170>"
 ```
 
 ```r
@@ -274,7 +283,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x414a028 -> 0x3fcdc10]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x3f9e170 -> 0x3ee9920]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -356,7 +365,7 @@ f()
 ```
 
 ```
-## <environment: 0x499f080>
+## <environment: 0x5381ea0>
 ```
 
 ```r
@@ -376,7 +385,7 @@ e
 ```
 
 ```
-## <environment: 0x3b857f8>
+## <environment: 0x4d788a8>
 ```
 
 ```r

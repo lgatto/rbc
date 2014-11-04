@@ -71,7 +71,8 @@ gccountr(s)
 gccountr2(s)
 ```
 
-But are they really the same?
+But are they really the same? Are we really comparing the same
+functionalities?
 
 ```{r, cache = TRUE}
 library("microbenchmark")
@@ -101,32 +102,11 @@ benchmark(replications = 1e4,
 ## Profiling 
 
 
-```
-> Rprof("rprof")
-> res <- apply(m, 1, mean, trim=.3)
-> Rprof(NULL)
-> summaryRprof("rprof")
-$by.self
-                 self.time self.pct total.time total.pct
-"mean.default"        0.02    33.33       0.06    100.00
-"any"                 0.02    33.33       0.02     33.33
-"unique.default"      0.02    33.33       0.02     33.33
-
-$by.total
-                 total.time total.pct self.time self.pct
-"mean.default"         0.06    100.00      0.02    33.33
-"apply"                0.06    100.00      0.00     0.00
-"FUN"                  0.06    100.00      0.00     0.00
-"any"                  0.02     33.33      0.02    33.33
-"unique.default"       0.02     33.33      0.02    33.33
-"sort.int"             0.02     33.33      0.00     0.00
-"unique"               0.02     33.33      0.00     0.00
-
-$sample.interval
-[1] 0.02
-
-$sampling.time
-[1] 0.06
+```{r}
+Rprof("rprof")
+res <- apply(m, 1, mean, trim=.3)
+Rprof(NULL)
+summaryRprof("rprof")
 ```
 
 ### The `lineprof` package
