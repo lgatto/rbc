@@ -110,7 +110,7 @@ the content will be made available here.
 | When          | What                                           |     |
 |---------------|------------------------------------------------|-----|
 | 8:30          | Setup and welcome                              | LG  |
-| 9:00 - 10:30  | Introduction, background                       | RS  |
+| 9:00 - 10:30  | [Introduction, background](./Roo/roo.pdf)      | RS  |
 |               | Break                                          |     |
 | 11:00 - 12:30 | OO programming                                 | RS  |
 |               | Lunch                                          |     |
