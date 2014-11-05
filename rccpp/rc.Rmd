@@ -70,7 +70,7 @@ double sumC(NumericVector x) {
     total += x[i];
   }
   return total;
-}'
+}
 ```
 
 ## Compile and use in `R`
@@ -233,10 +233,51 @@ bool any_naC(NumericVector x) {
 Revise the following functions to employ sugar:
 
 
-
 # An package with `Rcpp` code
 
+Starting a new package. The `Rcpp.pacakage.skeleton` will, like the
+usual `package.skeleton`, initialise the appropriate package
+structure, including specific `Rcpp` requirements. In particular, this
+code
 
+```{r, eval=FALSE}
+library("Rcpp")
+Rcpp.package.skeleton("NewCppPackage", example_code = FALSE,
+                      cpp_files = "code.cpp")
+```
+
+will copy `code.cpp` into `NewCppPackage/src/.`, run `sourceCpp` and
+properly generate the export wrappers for the C++ code. The resulting
+package will also have
+
+In the `DESCRIPTION` file:
+
+```
+LinkingTo: Rcpp
+Imports: Rcpp
+```
+
+In the `NAMESPACE` file:
+
+```
+useDynLib(mypackage)
+importFrom(Rcpp, sourceCpp)
+```
+
+Whenever any existing C++ function's signature is modified, new C++
+functions are removed or added, one needs to run
+`Rcpp::compileAttributes("/path/to/NewCppPackage")` to update the
+export wrappers.
+
+### Exercise
+
+- Use `Rcpp.package.skeleton` as descibed above and any C++ function
+  witten so far and create a package as outlined above.
+
+or
+
+- Add a C++ function of your choice to an existing package (for
+  example, add your own `gccount` to the `sequences` package).
 
 # Other
 
@@ -268,6 +309,8 @@ double sum3(NumericVector x) {
   return total;
 }
 ```
+
+- <algorithms>
 
 If more is needed, the **boost** library offers additional
 implementations.

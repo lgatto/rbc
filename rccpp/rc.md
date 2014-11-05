@@ -73,7 +73,7 @@ double sumC(NumericVector x) {
     total += x[i];
   }
   return total;
-}'
+}
 ```
 
 ## Compile and use in `R`
@@ -95,7 +95,7 @@ sumC
 
 ```
 ## function (x) 
-## .Primitive(".Call")(<pointer: 0x2b2ebb8c1d60>, x)
+## .Primitive(".Call")(<pointer: 0x2baa4c13ad60>, x)
 ```
 
 ```r
@@ -103,7 +103,7 @@ sumC(c(1, 2, 1:4, rnorm(3)))
 ```
 
 ```
-## [1] 10.24601
+## [1] 14.01425
 ```
 
 ### Sourcing C++ code
@@ -148,14 +148,15 @@ sourceCpp("./src/ex_sumC.cpp")
 ```
 ## 
 ## > (x <- c(1, 3, rnorm(10)))
-##  [1]  1.0000000  3.0000000 -1.6699906  0.3818241 -0.4620736  0.1420759
-##  [7]  1.1102778 -1.2604230 -0.2063841 -1.1594985  1.0855741  0.3738145
+##  [1]  1.00000000  3.00000000  0.95185257  1.65130289  0.69638788
+##  [6]  0.02022939  1.22795306  0.32101259  0.71762863  1.39308607
+## [11]  0.08159001 -0.90294434
 ## 
 ## > sumC(x)
-## [1] 2.335197
+## [1] 10.1581
 ## 
 ## > sum(x)
-## [1] 2.335197
+## [1] 10.1581
 ```
 
 ## An example with a matrix
@@ -301,10 +302,52 @@ bool any_naC(NumericVector x) {
 Revise the following functions to employ sugar:
 
 
-
 # An package with `Rcpp` code
 
+Starting a new package. The `Rcpp.pacakage.skeleton` will, like the
+usual `package.skeleton`, initialise the appropriate package
+structure, including specific `Rcpp` requirements. In particular, this
+code
 
+
+```r
+library("Rcpp")
+Rcpp.package.skeleton("NewCppPackage", example_code = FALSE,
+                      cpp_files = "code.cpp")
+```
+
+will copy `code.cpp` into `NewCppPackage/src/.`, run `sourceCpp` and
+properly generate the export wrappers for the C++ code. The resulting
+package will also have
+
+In the `DESCRIPTION` file:
+
+```
+LinkingTo: Rcpp
+Imports: Rcpp
+```
+
+In the `NAMESPACE` file:
+
+```
+useDynLib(mypackage)
+importFrom(Rcpp, sourceCpp)
+```
+
+Whenever any existing C++ function's signature is modified, new C++
+functions are removed or added, one needs to run
+`Rcpp::compileAttributes("/path/to/NewCppPackage")` to update the
+export wrappers.
+
+### Exercise
+
+- Use `Rcpp.package.skeleton` as descibed above and any C++ function
+  witten so far and create a package as outlined above.
+
+or
+
+- Add a C++ function of your choice to an existing package (for
+  example, add your own `gccount` to the `sequences` package).
 
 # Other
 
@@ -336,6 +379,8 @@ double sum3(NumericVector x) {
   return total;
 }
 ```
+
+- <algorithms>
 
 If more is needed, the **boost** library offers additional
 implementations.
