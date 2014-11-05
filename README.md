@@ -63,6 +63,8 @@ the content will be made available here.
 <!-- - Previous bootcamp: https://github.com/lgatto/rbc/tree/2014-01-07-CAM -->
 - Various teaching material: https://github.com/lgatto/teachingmaterial
 - [Advanced R](http://adv-r.had.co.nz/) by Hadley Wickham
+- [Package development](http://r-pkgs.had.co.nz/)
+- Bioconductor package development (add link)
 
 ## Logistics
 
