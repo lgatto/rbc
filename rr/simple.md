@@ -50,7 +50,7 @@ plot(x, y, type='l', col='blue')
 
 ![plot of chunk plot-chunk](figure/plot-chunk-1.png) 
 
-## Tables are not so straightforward (in markdown)
+## Tables 
 
 See also the [xtable](http://cran.r-project.org/web/packages/xtable/)
 package.
@@ -110,16 +110,6 @@ kable(head(iris[,1:3]), format='html')
 2. What can `knitr` do? [Knitr home page](http://yihui.name/knitr/)
 
 
-# Exercise:
-
-Prepare a `Rmd` document for the `sequences` package. Look at the
-original vignette to get started:
-
-
-```r
-vignette("sequences", package = "sequences")
-```
-
 # What are vignettes?
 
 Vignettes are self-contained documents that typically describe in
@@ -134,6 +124,16 @@ detail how a package works.  See a list of them with `vignette()`.
   `Rmd` files (inside HTML comments)
 
 Now build, check and install your package.
+
+# Exercise:
+
+Prepare a `Rmd` document for the `sequences` package. Look at the
+original vignette to get started:
+
+
+```r
+vignette("sequences", package = "sequences")
+```
 
 # How to compile this document
 
