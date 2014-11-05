@@ -249,6 +249,26 @@ Will require extra care to emulate the standard `R` behaviour. See
 
 C++ is a widely used for complex data structures and algorithms, which
 can be leveraged via the `Rcpp` package. The **Standard Template
-Library** (STL) provides such facilities. If more is needed, the
-**boost** library offers additional implementations.
+Library** (STL) provides such facilities.
+
+- Iterators: iteration (`for` loop) abstraction:
+
+```{c}
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double sum3(NumericVector x) {
+  double total = 0;
+  
+  NumericVector::iterator it;
+  for(it = x.begin(); it != x.end(); ++it) {
+    total += *it;
+  }
+  return total;
+}
+```
+
+If more is needed, the **boost** library offers additional
+implementations.
 
