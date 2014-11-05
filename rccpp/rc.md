@@ -1,5 +1,5 @@
-R and C++
-====
+[`Rcpp`](http://rcpp.org/) = R and C++(made easy)
+=====
 
 This material is based on the
 *[High performance functions with Rcpp](http://adv-r.had.co.nz/Rcpp.html)*
@@ -11,7 +11,7 @@ chapter of the *Advanced R* book by Hadley Wickham.
 
 > R is interpreted; C++ is a compiled language.
 
-We will focus on short simple code snippets using `Rcpp`:
+We will focus on short simple code snippets using `[Rcpp](http://rcpp.org/)`:
 
 
 ```r
@@ -95,7 +95,7 @@ sumC
 
 ```
 ## function (x) 
-## .Primitive(".Call")(<pointer: 0x2baa4c13ad60>, x)
+## .Primitive(".Call")(<pointer: 0x2b12df838d60>, x)
 ```
 
 ```r
@@ -103,7 +103,7 @@ sumC(c(1, 2, 1:4, rnorm(3)))
 ```
 
 ```
-## [1] 14.01425
+## [1] 10.00524
 ```
 
 ### Sourcing C++ code
@@ -111,7 +111,8 @@ sumC(c(1, 2, 1:4, rnorm(3)))
 The `./src/ex_sumC.cpp` file contains:
 
 - include statements
-- the export directive
+- the export directive (see
+  [Rcpp attributes](http://dirk.eddelbuettel.com/code/rcpp/Rcpp-attributes.pdf))
 - the C++ code
 - as comment, R code that will be evaluated
 
@@ -148,15 +149,14 @@ sourceCpp("./src/ex_sumC.cpp")
 ```
 ## 
 ## > (x <- c(1, 3, rnorm(10)))
-##  [1]  1.00000000  3.00000000  0.95185257  1.65130289  0.69638788
-##  [6]  0.02022939  1.22795306  0.32101259  0.71762863  1.39308607
-## [11]  0.08159001 -0.90294434
+##  [1]  1.0000000  3.0000000 -0.8245022  0.8132212 -0.4393837  0.5682191
+##  [7] -0.7921556  0.7076611  0.0452498 -0.2829311  1.5311940  0.3522432
 ## 
 ## > sumC(x)
-## [1] 10.1581
+## [1] 5.678816
 ## 
 ## > sum(x)
-## [1] 10.1581
+## [1] 5.678816
 ```
 
 ## An example with a matrix
@@ -248,7 +248,7 @@ foo <- function(x, y) ifelse(x < y, x*x, -(y*y))
 /sugar/ (for syntactic sugar ) is a set of C++ functions that (mostly)
 work and look like their R couterparts. Allows for example compact
 vectorised expression. Looks like R with the C++ efficiency (see the
-Rcpp-sugar vignette/paper).
+[Rcpp-sugar](http://dirk.eddelbuettel.com/code/rcpp/Rcpp-sugar.pdf) vignette/paper).
 
 - Vectorised arithmetic and logical operators: +, >, !, ...
 - Functions: seq_len, seq, sapply, rnorm, abs, sum, ..
@@ -301,6 +301,20 @@ bool any_naC(NumericVector x) {
 
 Revise the following functions to employ sugar:
 
+```
+rowSums pdist lgl_bigger foo
+```
+
+For example, the `sumC` function above can be rewritten
+
+
+```{c}
+// [[Rcpp::export]]
+double sumC2(NumericVector x) {
+  double ans = sum(x);
+  return ans;
+}
+```
 
 # An package with `Rcpp` code
 
@@ -344,7 +358,7 @@ export wrappers.
 - Use `Rcpp.package.skeleton` as descibed above and any C++ function
   witten so far and create a package as outlined above.
 
-or
+and/or
 
 - Add a C++ function of your choice to an existing package (for
   example, add your own `gccount` to the `sequences` package).
@@ -358,11 +372,13 @@ Will require extra care to emulate the standard `R` behaviour. See
 
 ## More C++ 
 
+### STL
+
 C++ is a widely used for complex data structures and algorithms, which
 can be leveraged via the `Rcpp` package. The **Standard Template
 Library** (STL) provides such facilities.
 
-- Iterators: iteration (`for` loop) abstraction:
+- For example, iterators, i.e. iteration (`for` loop) abstraction
 
 ```{c}
 #include <Rcpp.h>
@@ -380,8 +396,25 @@ double sum3(NumericVector x) {
 }
 ```
 
-- <algorithms>
+- [Standard Template Library Algorithms](http://www.cplusplus.com/reference/algorithm/):
+  Thef header `<algorithm>` defines a collection of functions especially
+  designed to be used on ranges of elements.
 
-If more is needed, the **boost** library offers additional
-implementations.
+## Boost
 
+[Boost](http://www.boost.org/) is a set of libraries for the C++
+programming language that provide support for tasks and structures
+such as linear algebra, pseudorandom number generation,
+multithreading, image processing, regular expressions, and unit
+testing.
+
+## Modules
+
+[Modules](http://dirk.eddelbuettel.com/code/rcpp/Rcpp-modules.pdf)
+enables to expose C++ classes and methods to R.
+
+# References
+
+- [Rcpp book](http://www.rcpp.org/book/) and [web page](http://rcpp.org/)
+- [High performance functions with Rcpp](http://adv-r.had.co.nz/Rcpp.html)
+  chapter of the *Advanced R* book by Hadley Wickham.

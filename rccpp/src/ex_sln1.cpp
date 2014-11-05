@@ -59,15 +59,6 @@ NumericVector biggerYC(NumericVector x, double y) {
 }
 
 
-// StackOverflow: subset a vector and sort it
-
-// [[Rcpp::export]]
-NumericVector rollP3(NumericVector A, int start, int end) {
-  NumericVector B = A[seq(start-1, end-1)] ;
-  return B.sort() ;
-}
-
-
 // Example from Dirk's slides
 
 // [[Rcpp::export]]
