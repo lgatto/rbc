@@ -53,7 +53,7 @@ the content will be made available here.
 | 11:00 - 12:30 | RR - [Automation and `Makefiles`](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/rr/make.md) | LG  |
 |               | Lunch                                     |     |
 | 14:00 - 14:45 | [Profiling and optimisation](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/coding/code.md)                | LG  |
-| 14:45 - 15:30 | C/C++ and Rcpp                            | LG  |
+| 14:45 - 15:30 | [C/C++ and Rcpp](https://github.com/lgatto/rbc/tree/2014-11-06-Zurich/rccpp)                            | LG  |
 |               | Break                                     |     |
 | 16:00 - 16:40 | [Parallel processing](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/R-parallel/parallel.pdf) [src](https://github.com/lgatto/rbc/tree/2014-11-06-Zurich/R-parallel/src)    | LG  |
 | 16:40 - 17:00 | Wrap up, feedback                         | all |
