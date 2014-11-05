@@ -95,7 +95,7 @@ sumC
 
 ```
 ## function (x) 
-## .Primitive(".Call")(<pointer: 0x2ac43c037d60>, x)
+## .Primitive(".Call")(<pointer: 0x2af742ed1d60>, x)
 ```
 
 ```r
@@ -103,7 +103,7 @@ sumC(c(1, 2, 1:4, rnorm(3)))
 ```
 
 ```
-## [1] 12.4721
+## [1] 13.31529
 ```
 
 ### Sourcing C++ code
@@ -148,15 +148,15 @@ sourceCpp("./src/ex_sumC.cpp")
 ```
 ## 
 ## > (x <- c(1, 3, rnorm(10)))
-##  [1]  1.00000000  3.00000000 -0.80650672 -0.67822489  0.44922352
-##  [6]  0.02785415  0.47338788 -0.20491275 -1.17171520 -1.41876422
-## [11] -0.18082929 -1.20672706
+##  [1]  1.00000000  3.00000000  0.71880519 -0.03895721 -0.48675271
+##  [6] -0.15791765  0.18604589 -0.26469803 -0.62511108  0.88316787
+## [11]  1.03718375 -0.24152301
 ## 
 ## > sumC(x)
-## [1] -0.7172146
+## [1] 5.010243
 ## 
 ## > sum(x)
-## [1] -0.7172146
+## [1] 5.010243
 ```
 
 ## An example with a matrix
@@ -318,6 +318,26 @@ Will require extra care to emulate the standard `R` behaviour. See
 
 C++ is a widely used for complex data structures and algorithms, which
 can be leveraged via the `Rcpp` package. The **Standard Template
-Library** (STL) provides such facilities. If more is needed, the
-**boost** library offers additional implementations.
+Library** (STL) provides such facilities.
+
+- Iterators: iteration (`for` loop) abstraction:
+
+```{c}
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double sum3(NumericVector x) {
+  double total = 0;
+  
+  NumericVector::iterator it;
+  for(it = x.begin(); it != x.end(); ++it) {
+    total += *it;
+  }
+  return total;
+}
+```
+
+If more is needed, the **boost** library offers additional
+implementations.
 

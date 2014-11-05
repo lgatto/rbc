@@ -1,5 +1,6 @@
 all:
-	make rccpp
+	make rccpp.pdf
+	make rc.md
 
 LATEXFILES = *.aux\
 	*.aux\
@@ -25,7 +26,7 @@ endif
 
 
 
-rccpp: rccpp.Rnw intro.tex call.tex rcpp.tex
+rccpp.pdf: rccpp.Rnw intro.tex call.tex rcpp.tex
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2pdf('rccpp.Rnw');"
 	pdflatex rccpp.tex
 
@@ -52,3 +53,5 @@ clean:
 	rm -f src/*.so
 	rm -rf mypackage
 	rm -f src/.Rhistory
+
+.PHONY: clean 
