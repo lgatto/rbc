@@ -45,7 +45,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.001   0.000   0.001
+##   0.001   0.000   0.002
 ```
 
 
@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.002 0.002 0.002 0.002
+## [1] 0.001 0.001 0.001 0.001 0.001
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 27 26 18 29
+## [1] 20 17 35 28
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 27 26 18 29
+## 20 17 35 28
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 27 26 18 29
+## [1] 20 17 35 28
 ```
 
 But are they really the same? Are we really comparing the same
@@ -176,25 +176,24 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##              self.time self.pct total.time total.pct
-## ".External2"      0.02      100       0.02       100
+##        self.time self.pct total.time total.pct
+## "eval"      0.02      100       0.02       100
 ## 
 ## $by.total
 ##                       total.time total.pct self.time self.pct
-## ".External2"                0.02       100      0.02      100
-## "<Anonymous>"               0.02       100      0.00        0
+## "eval"                      0.02       100      0.02      100
 ## "block_exec"                0.02       100      0.00        0
 ## "call_block"                0.02       100      0.00        0
 ## "evaluate"                  0.02       100      0.00        0
 ## "evaluate_call"             0.02       100      0.00        0
-## "handle_output"             0.02       100      0.00        0
 ## "in_dir"                    0.02       100      0.00        0
 ## "knit"                      0.02       100      0.00        0
-## "plot_snapshot"             0.02       100      0.00        0
+## "match.arg"                 0.02       100      0.00        0
 ## "process_file"              0.02       100      0.00        0
 ## "process_group"             0.02       100      0.00        0
 ## "process_group.block"       0.02       100      0.00        0
-## "recordPlot"                0.02       100      0.00        0
+## "setHook"                   0.02       100      0.00        0
+## "set_hooks"                 0.02       100      0.00        0
 ## "withCallingHandlers"       0.02       100      0.00        0
 ## 
 ## $sample.interval
@@ -259,7 +258,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x378b670>"
+## [1] "<0x4f09f30>"
 ```
 
 ```r
@@ -267,8 +266,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x378b670 -> 0x37d3148]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x37d3148 -> 0x36ec408]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x4f09f30 -> 0x4a926b8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x4a926b8 -> 0x4a48f58]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -280,7 +279,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x317f220>"
+## [1] "<0x43d8b40>"
 ```
 
 ```r
@@ -290,7 +289,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x317f220 -> 0x30f0170]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x43d8b40 -> 0x4349a90]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -386,11 +385,16 @@ fibC(10)
 
 
 ```r
+library("microbenchmark")
 microbenchmark(fibR(10), fibRcmp(10), fibC(10), times = 1e2)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "microbenchmark"
+## Unit: microseconds
+##         expr     min      lq      mean   median       uq     max neval cld
+##     fibR(10) 151.585 176.265 188.16441 185.4060 202.3850 225.081   100   b
+##  fibRcmp(10) 153.453 178.768 190.80853 189.2575 203.5915 241.011   100   b
+##     fibC(10)   1.793   2.311  11.58993   2.8410   3.5975 852.828   100  a
 ```
 
 
@@ -440,7 +444,7 @@ f()
 ```
 
 ```
-## <environment: 0x411d678>
+## <environment: 0x4ea24d8>
 ```
 
 ```r
@@ -460,7 +464,7 @@ e
 ```
 
 ```
-## <environment: 0x4653588>
+## <environment: 0x5634ee0>
 ```
 
 ```r

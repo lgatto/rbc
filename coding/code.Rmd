@@ -217,6 +217,7 @@ fibC(10)
 ```
 
 ```{r}
+library("microbenchmark")
 microbenchmark(fibR(10), fibRcmp(10), fibC(10), times = 1e2)
 ```
 
