@@ -183,6 +183,8 @@ library("compiler")
 readFastaCmp <- cmpfun(readFasta)
 f <- dir(system.file("extdata",package="sequences"),
          pattern="fasta", full.names=TRUE)
+
+library("microbenchmark")
 microbenchmark(readFasta(f), readFastaCmp(f), times = 1e2)
 ```
 Fibonacci example
@@ -217,7 +219,6 @@ fibC(10)
 ```
 
 ```{r}
-library("microbenchmark")
 microbenchmark(fibR(10), fibRcmp(10), fibC(10), times = 1e2)
 ```
 

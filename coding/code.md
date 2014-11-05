@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 20 17 35 28
+## [1] 25 33 26 16
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 20 17 35 28
+## 25 33 26 16
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 20 17 35 28
+## [1] 25 33 26 16
 ```
 
 But are they really the same? Are we really comparing the same
@@ -176,31 +176,18 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##        self.time self.pct total.time total.pct
-## "eval"      0.02      100       0.02       100
+## [1] self.time  self.pct   total.time total.pct 
+## <0 rows> (or 0-length row.names)
 ## 
 ## $by.total
-##                       total.time total.pct self.time self.pct
-## "eval"                      0.02       100      0.02      100
-## "block_exec"                0.02       100      0.00        0
-## "call_block"                0.02       100      0.00        0
-## "evaluate"                  0.02       100      0.00        0
-## "evaluate_call"             0.02       100      0.00        0
-## "in_dir"                    0.02       100      0.00        0
-## "knit"                      0.02       100      0.00        0
-## "match.arg"                 0.02       100      0.00        0
-## "process_file"              0.02       100      0.00        0
-## "process_group"             0.02       100      0.00        0
-## "process_group.block"       0.02       100      0.00        0
-## "setHook"                   0.02       100      0.00        0
-## "set_hooks"                 0.02       100      0.00        0
-## "withCallingHandlers"       0.02       100      0.00        0
+## [1] total.time total.pct  self.time  self.pct  
+## <0 rows> (or 0-length row.names)
 ## 
 ## $sample.interval
 ## [1] 0.02
 ## 
 ## $sampling.time
-## [1] 0.02
+## [1] 0
 ```
 
 ### The `lineprof` package
@@ -258,7 +245,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x4f09f30>"
+## [1] "<0x337f330>"
 ```
 
 ```r
@@ -266,8 +253,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x4f09f30 -> 0x4a926b8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x4a926b8 -> 0x4a48f58]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x337f330 -> 0x49f4d10]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x49f4d10 -> 0x56539c0]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -279,7 +266,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x43d8b40>"
+## [1] "<0x501e780>"
 ```
 
 ```r
@@ -289,7 +276,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x43d8b40 -> 0x4349a90]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x501e780 -> 0x4fc1d38]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -338,11 +325,19 @@ library("compiler")
 readFastaCmp <- cmpfun(readFasta)
 f <- dir(system.file("extdata",package="sequences"),
          pattern="fasta", full.names=TRUE)
+
+library("microbenchmark")
 microbenchmark(readFasta(f), readFastaCmp(f), times = 1e2)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "microbenchmark"
+## Unit: microseconds
+##             expr     min       lq     mean   median       uq      max
+##     readFasta(f) 603.984 622.8155 645.6895 633.0640 662.2065  767.886
+##  readFastaCmp(f) 595.371 611.1370 687.3923 625.6765 652.8460 2809.847
+##  neval cld
+##    100   a
+##    100   a
 ```
 Fibonacci example
 
@@ -385,16 +380,15 @@ fibC(10)
 
 
 ```r
-library("microbenchmark")
 microbenchmark(fibR(10), fibRcmp(10), fibC(10), times = 1e2)
 ```
 
 ```
 ## Unit: microseconds
-##         expr     min      lq      mean   median       uq     max neval cld
-##     fibR(10) 151.585 176.265 188.16441 185.4060 202.3850 225.081   100   b
-##  fibRcmp(10) 153.453 178.768 190.80853 189.2575 203.5915 241.011   100   b
-##     fibC(10)   1.793   2.311  11.58993   2.8410   3.5975 852.828   100  a
+##         expr     min      lq      mean  median      uq      max neval cld
+##     fibR(10) 157.966 172.613 182.05824 177.071 186.318  232.311   100   b
+##  fibRcmp(10) 158.568 174.316 191.62650 177.845 186.046 1077.792   100   b
+##     fibC(10)   1.850   2.386   3.10504   2.813   3.331    9.205   100  a
 ```
 
 
@@ -444,7 +438,7 @@ f()
 ```
 
 ```
-## <environment: 0x4ea24d8>
+## <environment: 0x5dff528>
 ```
 
 ```r
@@ -464,7 +458,7 @@ e
 ```
 
 ```
-## <environment: 0x5634ee0>
+## <environment: 0x4f3e378>
 ```
 
 ```r
