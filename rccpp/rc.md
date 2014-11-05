@@ -65,7 +65,7 @@ sumR <- function(x) {
 }
 ```
 
-```
+```{c}
 double sumC(NumericVector x) {
   int n = x.size();
   double total = 0;
@@ -95,7 +95,7 @@ sumC
 
 ```
 ## function (x) 
-## .Primitive(".Call")(<pointer: 0x2af742ed1d60>, x)
+## .Primitive(".Call")(<pointer: 0x2b2ebb8c1d60>, x)
 ```
 
 ```r
@@ -103,7 +103,7 @@ sumC(c(1, 2, 1:4, rnorm(3)))
 ```
 
 ```
-## [1] 13.31529
+## [1] 10.24601
 ```
 
 ### Sourcing C++ code
@@ -148,15 +148,14 @@ sourceCpp("./src/ex_sumC.cpp")
 ```
 ## 
 ## > (x <- c(1, 3, rnorm(10)))
-##  [1]  1.00000000  3.00000000  0.71880519 -0.03895721 -0.48675271
-##  [6] -0.15791765  0.18604589 -0.26469803 -0.62511108  0.88316787
-## [11]  1.03718375 -0.24152301
+##  [1]  1.0000000  3.0000000 -1.6699906  0.3818241 -0.4620736  0.1420759
+##  [7]  1.1102778 -1.2604230 -0.2063841 -1.1594985  1.0855741  0.3738145
 ## 
 ## > sumC(x)
-## [1] 5.010243
+## [1] 2.335197
 ## 
 ## > sum(x)
-## [1] 5.010243
+## [1] 2.335197
 ```
 
 ## An example with a matrix
@@ -201,7 +200,7 @@ signR <- function(x) {
 }
 ```
 
-```
+```{c}
 int signC(int x) {
   if (x > 0) {
     return 1;
@@ -257,7 +256,7 @@ Rcpp-sugar vignette/paper).
 
 `+ *, -, /, pow, <, <=, >, >=, ==, !=, !'
 
-```
+```{c}
 NumericVector pdistC2(double x, NumericVector ys) {
   return sqrt(pow((x - ys), 2));
 }

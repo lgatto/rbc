@@ -62,7 +62,7 @@ sumR <- function(x) {
 }
 ```
 
-```
+```{c}
 double sumC(NumericVector x) {
   int n = x.size();
   double total = 0;
@@ -133,7 +133,7 @@ signR <- function(x) {
 }
 ```
 
-```
+```{c}
 int signC(int x) {
   if (x > 0) {
     return 1;
@@ -188,7 +188,7 @@ Rcpp-sugar vignette/paper).
 
 `+ *, -, /, pow, <, <=, >, >=, ==, !=, !'
 
-```
+```{c}
 NumericVector pdistC2(double x, NumericVector ys) {
   return sqrt(pow((x - ys), 2));
 }
