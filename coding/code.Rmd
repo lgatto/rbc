@@ -1,4 +1,4 @@
-Benchamring, profiling and optimisation
+Benchmarking, profiling and optimisation
 ===============
 
 ```{r, echo=FALSE}
