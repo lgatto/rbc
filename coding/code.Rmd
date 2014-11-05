@@ -269,8 +269,8 @@ This is used in the `eSet` et al. microarray data structures to store the expres
 - `mmap` memory-mapped files/devices I/O
 - hadoop and R
 - See http://r-pbd.org/ and the
-  [[http://cran.r-project.org/web/packages/pbdDEMO/][pbdDemo]]
-  package/vignette
+  [pbdDemo](http://cran.r-project.org/web/packages/pbdDEMO/)
+  package/vignette.
 - [Bioconductor in the cloud](http://bioconductor.org/help/bioconductor-cloud-ami/)
 - ...
 

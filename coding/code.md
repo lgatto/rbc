@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.001 0.001 0.002 0.001
+## [1] 0.002 0.002 0.002 0.002 0.002
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 31 30 18 21
+## [1] 28 27 15 30
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 31 30 18 21
+## 28 27 15 30
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 31 30 18 21
+## [1] 28 27 15 30
 ```
 
 But are they really the same? Are we really comparing the same
@@ -179,32 +179,26 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##                self.time self.pct total.time total.pct
-## "mean.default"      0.02      100       0.02       100
+##           self.time self.pct total.time total.pct
+## "deparse"      0.02      100       0.02       100
 ## 
 ## $by.total
 ##                       total.time total.pct self.time self.pct
-## "mean.default"              0.02       100      0.02      100
-## "apply"                     0.02       100      0.00        0
+## "deparse"                   0.02       100      0.02      100
 ## "block_exec"                0.02       100      0.00        0
 ## "call_block"                0.02       100      0.00        0
-## "doTryCatch"                0.02       100      0.00        0
 ## "eval"                      0.02       100      0.00        0
 ## "evaluate"                  0.02       100      0.00        0
 ## "evaluate_call"             0.02       100      0.00        0
-## "FUN"                       0.02       100      0.00        0
-## "handle"                    0.02       100      0.00        0
 ## "in_dir"                    0.02       100      0.00        0
 ## "knit"                      0.02       100      0.00        0
+## "match.arg"                 0.02       100      0.00        0
 ## "process_file"              0.02       100      0.00        0
 ## "process_group"             0.02       100      0.00        0
 ## "process_group.block"       0.02       100      0.00        0
-## "try"                       0.02       100      0.00        0
-## "tryCatch"                  0.02       100      0.00        0
-## "tryCatchList"              0.02       100      0.00        0
-## "tryCatchOne"               0.02       100      0.00        0
+## "setHook"                   0.02       100      0.00        0
+## "set_hooks"                 0.02       100      0.00        0
 ## "withCallingHandlers"       0.02       100      0.00        0
-## "withVisible"               0.02       100      0.00        0
 ## 
 ## $sample.interval
 ## [1] 0.02
@@ -268,7 +262,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x3f778d8>"
+## [1] "<0x4a518c8>"
 ```
 
 ```r
@@ -276,8 +270,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x3f778d8 -> 0x2a1c000]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x2a1c000 -> 0x28b8d38]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x4a518c8 -> 0x34f6b40]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x34f6b40 -> 0x3392948]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -289,7 +283,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x2515270>"
+## [1] "<0x2fef270>"
 ```
 
 ```r
@@ -299,7 +293,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x2515270 -> 0x247d260]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x2fef270 -> 0x2f57260]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -406,7 +400,7 @@ f()
 ```
 
 ```
-## <environment: 0x339f748>
+## <environment: 0x3e79748>
 ```
 
 ```r
@@ -426,7 +420,7 @@ e
 ```
 
 ```
-## <environment: 0x2be9978>
+## <environment: 0x36c3978>
 ```
 
 ```r
@@ -488,8 +482,8 @@ This is used in the `eSet` et al. microarray data structures to store the expres
 - `mmap` memory-mapped files/devices I/O
 - hadoop and R
 - See http://r-pbd.org/ and the
-  [[http://cran.r-project.org/web/packages/pbdDEMO/][pbdDemo]]
-  package/vignette
+  [pbdDemo](http://cran.r-project.org/web/packages/pbdDEMO/)
+  package/vignette.
 - [Bioconductor in the cloud](http://bioconductor.org/help/bioconductor-cloud-ami/)
 - ...
 
