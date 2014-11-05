@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.001 0.001 0.002 0.002
+## [1] 0.002 0.001 0.001 0.002 0.001
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 29 24 29 18
+## [1] 31 30 18 21
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 29 24 29 18
+## 31 30 18 21
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 29 24 29 18
+## [1] 31 30 18 21
 ```
 
 But are they really the same? Are we really comparing the same
@@ -144,7 +144,10 @@ library("ggplot2")
 autoplot(mb)
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
+```
+## Error: Objects of type microbenchmark not supported by autoplot.  Please use qplot() or ggplot() instead.
+## Objects of type data.frame not supported by autoplot.  Please use qplot() or ggplot() instead.
+```
 
 
 ```r
@@ -167,7 +170,6 @@ benchmark(replications = 1e4,
 ## Profiling 
 
 
-
 ```r
 Rprof("rprof")
 res <- apply(m, 1, mean, trim=.3)
@@ -177,29 +179,32 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##         self.time self.pct total.time total.pct
-## "match"      0.02      100       0.02       100
+##                self.time self.pct total.time total.pct
+## "mean.default"      0.02      100       0.02       100
 ## 
 ## $by.total
 ##                       total.time total.pct self.time self.pct
-## "match"                     0.02       100      0.02      100
+## "mean.default"              0.02       100      0.02      100
+## "apply"                     0.02       100      0.00        0
 ## "block_exec"                0.02       100      0.00        0
 ## "call_block"                0.02       100      0.00        0
-## "deparse"                   0.02       100      0.00        0
-## ".deparseOpts"              0.02       100      0.00        0
+## "doTryCatch"                0.02       100      0.00        0
 ## "eval"                      0.02       100      0.00        0
 ## "evaluate"                  0.02       100      0.00        0
 ## "evaluate_call"             0.02       100      0.00        0
-## "%in%"                      0.02       100      0.00        0
+## "FUN"                       0.02       100      0.00        0
+## "handle"                    0.02       100      0.00        0
 ## "in_dir"                    0.02       100      0.00        0
 ## "knit"                      0.02       100      0.00        0
-## "match.arg"                 0.02       100      0.00        0
 ## "process_file"              0.02       100      0.00        0
 ## "process_group"             0.02       100      0.00        0
 ## "process_group.block"       0.02       100      0.00        0
-## "setHook"                   0.02       100      0.00        0
-## "set_hooks"                 0.02       100      0.00        0
+## "try"                       0.02       100      0.00        0
+## "tryCatch"                  0.02       100      0.00        0
+## "tryCatchList"              0.02       100      0.00        0
+## "tryCatchOne"               0.02       100      0.00        0
 ## "withCallingHandlers"       0.02       100      0.00        0
+## "withVisible"               0.02       100      0.00        0
 ## 
 ## $sample.interval
 ## [1] 0.02
@@ -233,21 +238,20 @@ shine(x) ## interactive visualisation
   deterministic because it occurs only when `gc` is triggered.
 - `d`: the number of duplicates
 
-## Memory profiling
+### See also
 
+The [`profr`](http://cran.r-project.org/web/packages/profr/index.html)
+and
+[`proftools`](http://cran.r-project.org/web/packages/proftools/index.html)
+packages.
+
+## Memory profiling
 
 Memory usage using `tracemem` (requires to build `R` with `--enable-memory-profiling`)
 
 
 ```r
-librarny(sequences)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "librarny"
-```
-
-```r
+library("sequences")
 (a <- new("DnaSeq", sequence = "GCATCAGCAGCT"))
 ```
 
@@ -264,7 +268,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x26e0498>"
+## [1] "<0x3f778d8>"
 ```
 
 ```r
@@ -272,8 +276,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x26e0498 -> 0x5c33958]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x5c33958 -> 0x5fa8368]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x3f778d8 -> 0x2a1c000]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x2a1c000 -> 0x28b8d38]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -285,7 +289,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x55a1a20>"
+## [1] "<0x2515270>"
 ```
 
 ```r
@@ -295,7 +299,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x55a1a20 -> 0x4ca2e68]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x2515270 -> 0x247d260]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -330,6 +334,31 @@ print(object.size(rnorm(1000000)), units="auto")
 
 ```
 ## 7.6 Mb
+```
+
+## Byte compiling `R` code
+
+The `compile` package - the `cmpfun` function compiles the body of a
+closure and returns a new closure with the same formals and the body
+replaced by the compiled body expression.
+
+
+```r
+readFastaCmp <- cmpfun(readFasta)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "cmpfun"
+```
+
+```r
+f <- dir(system.file("extdata",package="sequences"),
+         pattern="fasta", full.names=TRUE)
+microbenchmark(readFasta(f), readFastaCmp(f), times = 1e2)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "microbenchmark"
 ```
 
 ## Calling foreign languages
@@ -377,7 +406,7 @@ f()
 ```
 
 ```
-## <environment: 0x5296710>
+## <environment: 0x339f748>
 ```
 
 ```r
@@ -397,7 +426,7 @@ e
 ```
 
 ```
-## <environment: 0x575f658>
+## <environment: 0x2be9978>
 ```
 
 ```r
@@ -461,4 +490,9 @@ This is used in the `eSet` et al. microarray data structures to store the expres
 - See http://r-pbd.org/ and the
   [[http://cran.r-project.org/web/packages/pbdDEMO/][pbdDemo]]
   package/vignette
+- [Bioconductor in the cloud](http://bioconductor.org/help/bioconductor-cloud-ami/)
 - ...
+
+
+
+

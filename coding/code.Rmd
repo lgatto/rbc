@@ -101,7 +101,6 @@ benchmark(replications = 1e4,
 
 ## Profiling 
 
-
 ```{r}
 Rprof("rprof")
 res <- apply(m, 1, mean, trim=.3)
@@ -133,13 +132,19 @@ shine(x) ## interactive visualisation
   deterministic because it occurs only when `gc` is triggered.
 - `d`: the number of duplicates
 
-## Memory profiling
+### See also
 
+The [`profr`](http://cran.r-project.org/web/packages/profr/index.html)
+and
+[`proftools`](http://cran.r-project.org/web/packages/proftools/index.html)
+packages.
+
+## Memory profiling
 
 Memory usage using `tracemem` (requires to build `R` with `--enable-memory-profiling`)
 
 ```{r,}
-librarny(sequences)
+library("sequences")
 (a <- new("DnaSeq", sequence = "GCATCAGCAGCT"))
 tracemem(a)
 seq(a) <- "GATC"
@@ -165,6 +170,19 @@ Approximate object's size
 object.size(rnorm(10000))
 print(object.size(rnorm(10000)), units="auto")
 print(object.size(rnorm(1000000)), units="auto")
+```
+
+## Byte compiling `R` code
+
+The `compile` package - the `cmpfun` function compiles the body of a
+closure and returns a new closure with the same formals and the body
+replaced by the compiled body expression.
+
+```{r}
+readFastaCmp <- cmpfun(readFasta)
+f <- dir(system.file("extdata",package="sequences"),
+         pattern="fasta", full.names=TRUE)
+microbenchmark(readFasta(f), readFastaCmp(f), times = 1e2)
 ```
 
 ## Calling foreign languages
@@ -253,4 +271,9 @@ This is used in the `eSet` et al. microarray data structures to store the expres
 - See http://r-pbd.org/ and the
   [[http://cran.r-project.org/web/packages/pbdDEMO/][pbdDemo]]
   package/vignette
+- [Bioconductor in the cloud](http://bioconductor.org/help/bioconductor-cloud-ami/)
 - ...
+
+
+
+
