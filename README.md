@@ -39,7 +39,7 @@ the content will be made available here.
 | 14:00 - 15:30 | [Package development](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/RPackageDevelopment/rpd.pdf) | RS  |
 |               | Break                                          |     |
 | 16:00 - 16:30 | [Vectorisation](https://github.com/lgatto/rbc/raw/2014-11-06-Zurich/R-vectorisation/vectorisation.pdf) and [functional programming](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/R-functional-programming/functional-programming.pdf) | LG  |
-| 16:30 - 16:45 | Intro to git/gitub (applications on day 2)     | LG  |
+| 16:30 - 16:45 | Intro to [git/gitub](https://github.com/lgatto/rbc/blob/2014-11-06-Zurich/git/README.md) (applications on day 2)     | LG  |
 | 16:45 - 17:00 | Wrap up                                        | all |
 
 ### Day 2
