@@ -1,4 +1,4 @@
-[`Rcpp`](http://rcpp.org/) = R and C++(made easy)
+[`Rcpp`](http://rcpp.org/) = R + C++(made easy)
 =====
 
 This material is based on the
@@ -17,9 +17,11 @@ We will focus on short simple code snippets using `[Rcpp](http://rcpp.org/)`:
 install.packages("Rcpp")
 ```
 We need a C compiler:
-- Rtools on Windows
+- [Rtools](http://cran.r-project.org/bin/windows/Rtools/) on Windows
 - Xcode on Mac
 - package manager on Linux
+
+(see [here](https://github.com/lgatto/teachingmaterial/wiki/R-and-C-code) for relevant links)
 
 ```{r}
 library("Rcpp")
@@ -49,8 +51,8 @@ In C++, we need to
 - define input and output types
 - explicitly return a value
 - use `;`
-- make `for` loops explicit
-- call a method using `.` - `x.size()` to get the size (length) of `x`
+- define `for` loops explicitly
+- call a method using `.`: `x.size()` to get the size (length) of `x`
 
 ```{r}
 sumR <- function(x) {
@@ -94,7 +96,7 @@ sumC(c(1, 2, 1:4, rnorm(3)))
 
 The `./src/ex_sumC.cpp` file contains:
 
-- include statements
+- include header and namespace statements
 - the export directive (see
   [Rcpp attributes](http://dirk.eddelbuettel.com/code/rcpp/Rcpp-attributes.pdf))
 - the C++ code
@@ -349,3 +351,10 @@ enables to expose C++ classes and methods to R.
 - [Rcpp book](http://www.rcpp.org/book/) and [web page](http://rcpp.org/)
 - [High performance functions with Rcpp](http://adv-r.had.co.nz/Rcpp.html)
   chapter of the *Advanced R* book by Hadley Wickham.
+
+
+```{r, echo=FALSE}
+## testing solutions
+sourceCpp("./src/ex_sln1.cpp")
+sourceCpp("./src/ex_sln2.cpp")
+```

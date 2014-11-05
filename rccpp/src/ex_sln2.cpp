@@ -31,11 +31,6 @@ LogicalVector lgl_biggerYC2(NumericVector x, double y) {
   return x > y;
 }
 
-// [[Rcpp::export]]
-NumericVector rollP3(NumericVector A, int start, int end) {
-  NumericVector B = A[seq(start-1, end-1)] ;
-  return B.sort() ;
-}
 
 // [[Rcpp::export]]
 NumericVector foov(NumericVector xx, NumericVector yy) {

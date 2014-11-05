@@ -45,7 +45,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.002   0.000   0.002
+##   0.001   0.000   0.001
 ```
 
 
@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.001 0.001 0.002 0.002
+## [1] 0.002 0.002 0.002 0.002 0.002
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 33 27 19 21
+## [1] 27 26 18 29
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 33 27 19 21
+## 27 26 18 29
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 33 27 19 21
+## [1] 27 26 18 29
 ```
 
 But are they really the same? Are we really comparing the same
@@ -176,12 +176,12 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##                 self.time self.pct total.time total.pct
-## "plot_snapshot"      0.02      100       0.02       100
+##              self.time self.pct total.time total.pct
+## ".External2"      0.02      100       0.02       100
 ## 
 ## $by.total
 ##                       total.time total.pct self.time self.pct
-## "plot_snapshot"             0.02       100      0.02      100
+## ".External2"                0.02       100      0.02      100
 ## "<Anonymous>"               0.02       100      0.00        0
 ## "block_exec"                0.02       100      0.00        0
 ## "call_block"                0.02       100      0.00        0
@@ -190,9 +190,11 @@ summaryRprof("rprof")
 ## "handle_output"             0.02       100      0.00        0
 ## "in_dir"                    0.02       100      0.00        0
 ## "knit"                      0.02       100      0.00        0
+## "plot_snapshot"             0.02       100      0.00        0
 ## "process_file"              0.02       100      0.00        0
 ## "process_group"             0.02       100      0.00        0
 ## "process_group.block"       0.02       100      0.00        0
+## "recordPlot"                0.02       100      0.00        0
 ## "withCallingHandlers"       0.02       100      0.00        0
 ## 
 ## $sample.interval
@@ -257,7 +259,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x5267a80>"
+## [1] "<0x378b670>"
 ```
 
 ```r
@@ -265,8 +267,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x5267a80 -> 0x4fe6348]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x4fe6348 -> 0x4fceb08]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x378b670 -> 0x37d3148]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x37d3148 -> 0x36ec408]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -278,7 +280,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x4977ab0>"
+## [1] "<0x317f220>"
 ```
 
 ```r
@@ -288,7 +290,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x4977ab0 -> 0x48e8a00]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x317f220 -> 0x30f0170]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -438,7 +440,7 @@ f()
 ```
 
 ```
-## <environment: 0x5919a68>
+## <environment: 0x411d678>
 ```
 
 ```r
@@ -458,7 +460,7 @@ e
 ```
 
 ```
-## <environment: 0x5e4e488>
+## <environment: 0x4653588>
 ```
 
 ```r

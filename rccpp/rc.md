@@ -1,4 +1,4 @@
-[`Rcpp`](http://rcpp.org/) = R and C++(made easy)
+[`Rcpp`](http://rcpp.org/) = R + C++(made easy)
 =====
 
 This material is based on the
@@ -18,9 +18,11 @@ We will focus on short simple code snippets using `[Rcpp](http://rcpp.org/)`:
 install.packages("Rcpp")
 ```
 We need a C compiler:
-- Rtools on Windows
+- [Rtools](http://cran.r-project.org/bin/windows/Rtools/) on Windows
 - Xcode on Mac
 - package manager on Linux
+
+(see [here](https://github.com/lgatto/teachingmaterial/wiki/R-and-C-code) for relevant links)
 
 
 ```r
@@ -51,8 +53,8 @@ In C++, we need to
 - define input and output types
 - explicitly return a value
 - use `;`
-- make `for` loops explicit
-- call a method using `.` - `x.size()` to get the size (length) of `x`
+- define `for` loops explicitly
+- call a method using `.`: `x.size()` to get the size (length) of `x`
 
 
 ```r
@@ -95,7 +97,7 @@ sumC
 
 ```
 ## function (x) 
-## .Primitive(".Call")(<pointer: 0x2b12df838d60>, x)
+## .Primitive(".Call")(<pointer: 0x2ae83f50dd60>, x)
 ```
 
 ```r
@@ -103,14 +105,14 @@ sumC(c(1, 2, 1:4, rnorm(3)))
 ```
 
 ```
-## [1] 10.00524
+## [1] 13.87955
 ```
 
 ### Sourcing C++ code
 
 The `./src/ex_sumC.cpp` file contains:
 
-- include statements
+- include header and namespace statements
 - the export directive (see
   [Rcpp attributes](http://dirk.eddelbuettel.com/code/rcpp/Rcpp-attributes.pdf))
 - the C++ code
@@ -149,14 +151,15 @@ sourceCpp("./src/ex_sumC.cpp")
 ```
 ## 
 ## > (x <- c(1, 3, rnorm(10)))
-##  [1]  1.0000000  3.0000000 -0.8245022  0.8132212 -0.4393837  0.5682191
-##  [7] -0.7921556  0.7076611  0.0452498 -0.2829311  1.5311940  0.3522432
+##  [1]  1.00000000  3.00000000  0.03221003  0.13812202  1.07289799
+##  [6]  0.24790057 -0.20173767 -1.97670296 -0.25369404  0.86000656
+## [11]  1.78555673 -1.32250913
 ## 
 ## > sumC(x)
-## [1] 5.678816
+## [1] 4.38205
 ## 
 ## > sum(x)
-## [1] 5.678816
+## [1] 4.38205
 ```
 
 ## An example with a matrix
@@ -418,3 +421,6 @@ enables to expose C++ classes and methods to R.
 - [Rcpp book](http://www.rcpp.org/book/) and [web page](http://rcpp.org/)
 - [High performance functions with Rcpp](http://adv-r.had.co.nz/Rcpp.html)
   chapter of the *Advanced R* book by Hadley Wickham.
+
+
+

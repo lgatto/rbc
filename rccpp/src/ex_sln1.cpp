@@ -1,11 +1,10 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-
 // [[Rcpp::export]]
 int fibC(int n) {
-  if (n == 0) return(0);
-  if (n == 1) return(1);
+  if (n == 0) return 0;
+  if (n == 1) return 1;
   return fibC(n - 1) + fibC(n - 2);
 }
 
