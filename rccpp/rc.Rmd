@@ -1,8 +1,9 @@
 R and C++
 ====
 
-This material is based on the *High performance functions with Rcpp*
-chapter of the /Advanced R/ book by Hadley Wickham.
+This material is based on the
+*[High performance functions with Rcpp](http://adv-r.had.co.nz/Rcpp.html)*
+chapter of the *Advanced R* book by Hadley Wickham.
 
 # Getting started
 

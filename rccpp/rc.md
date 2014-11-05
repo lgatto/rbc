@@ -1,8 +1,9 @@
 R and C++
 ====
 
-This material is based on the *High performance functions with Rcpp*
-chapter of the /Advanced R/ book by Hadley Wickham.
+This material is based on the
+*[High performance functions with Rcpp](http://adv-r.had.co.nz/Rcpp.html)*
+chapter of the *Advanced R* book by Hadley Wickham.
 
 # Getting started
 
@@ -94,7 +95,7 @@ sumC
 
 ```
 ## function (x) 
-## .Primitive(".Call")(<pointer: 0x2b4f5c001d60>, x)
+## .Primitive(".Call")(<pointer: 0x2ac43c037d60>, x)
 ```
 
 ```r
@@ -102,7 +103,7 @@ sumC(c(1, 2, 1:4, rnorm(3)))
 ```
 
 ```
-## [1] 13.16911
+## [1] 12.4721
 ```
 
 ### Sourcing C++ code
@@ -147,14 +148,15 @@ sourceCpp("./src/ex_sumC.cpp")
 ```
 ## 
 ## > (x <- c(1, 3, rnorm(10)))
-##  [1]  1.0000000  3.0000000 -1.4772674  0.6258872 -1.9313957  0.5776386
-##  [7]  2.6125733  1.6164735  0.9670635  0.9105139 -1.1335419 -0.5785604
+##  [1]  1.00000000  3.00000000 -0.80650672 -0.67822489  0.44922352
+##  [6]  0.02785415  0.47338788 -0.20491275 -1.17171520 -1.41876422
+## [11] -0.18082929 -1.20672706
 ## 
 ## > sumC(x)
-## [1] 6.189385
+## [1] -0.7172146
 ## 
 ## > sum(x)
-## [1] 6.189385
+## [1] -0.7172146
 ```
 
 ## An example with a matrix
@@ -295,8 +297,27 @@ bool any_naC(NumericVector x) {
 
 - `d/q/p/r` for all standard distributions.
 
+## Exercises
+
+Revise the following functions to employ sugar:
+
+
+
+# An package with `Rcpp` code
+
+
+
+# Other
+
 ## Missing values
 
-## An package with `Rcpp` code
+Will require extra care to emulate the standard `R` behaviour. See
+[Advanced R Rcpp section](http://adv-r.had.co.nz/Rcpp.html#rcpp-na).
 
-## Standard Template Library
+## More C++ 
+
+C++ is a widely used for complex data structures and algorithms, which
+can be leveraged via the `Rcpp` package. The **Standard Template
+Library** (STL) provides such facilities. If more is needed, the
+**boost** library offers additional implementations.
+

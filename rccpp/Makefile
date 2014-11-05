@@ -39,7 +39,7 @@ rcpp.tex: rcpp.Rnw
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit('rcpp.Rnw');"
 
 rc.md: rc.Rmd
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('rc.Rmd')"
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit('rc.Rmd')"
 
 
 clean:
