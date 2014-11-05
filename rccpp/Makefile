@@ -38,6 +38,10 @@ call.tex: call.Rnw
 rcpp.tex: rcpp.Rnw
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit('rcpp.Rnw');"
 
+rc.md: rc.Rmd
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('rc.Rmd')"
+
+
 clean:
 	rm -f $(LATEXFILES)
 	rm -rf cache
