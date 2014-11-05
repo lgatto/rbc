@@ -86,7 +86,7 @@ print(mb)
 
 ```{r}
 library("ggplot2")
-autoplot(mb)
+microbenchmark:::autoplot.microbenchmark(mb)
 ```
 
 ```{r, cache=TRUE}
@@ -179,11 +179,48 @@ closure and returns a new closure with the same formals and the body
 replaced by the compiled body expression.
 
 ```{r}
+library("compiler")
 readFastaCmp <- cmpfun(readFasta)
 f <- dir(system.file("extdata",package="sequences"),
          pattern="fasta", full.names=TRUE)
 microbenchmark(readFasta(f), readFastaCmp(f), times = 1e2)
 ```
+Fibonacci example
+
+```{r}
+fibR <- function(n) {
+    if (n == 0) return(0)
+    if (n == 1) return(1)
+    return( fibR(n - 1) + fibR(n - 2))
+}
+fibR(10)
+```
+
+```{r}
+library("compiler")
+fibRcmp <- cmpfun(fibR)
+fibRcmp(10)
+```
+
+```{r, echo=FALSE}
+library("Rcpp")
+cppFunction('int fibC(int n) {
+  if (n == 0) return(0);
+  if (n == 1) return(1);
+  return fibC(n - 1) + fibC(n - 2);
+}')
+```
+
+```{r}
+## a C++ implementation (see later)
+fibC(10)
+```
+
+```{r}
+microbenchmark(fibR(10), fibRcmp(10), fibC(10), times = 1e2)
+```
+
+
 
 ## Calling foreign languages
 

@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.002 0.002 0.001 0.001
+## [1] 0.001 0.001 0.001 0.001 0.001
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 31 20 24 25
+## [1] 26 24 32 18
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 31 20 24 25
+## 26 24 32 18
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 31 20 24 25
+## [1] 26 24 32 18
 ```
 
 But are they really the same? Are we really comparing the same
@@ -141,13 +141,10 @@ print(mb)
 
 ```r
 library("ggplot2")
-autoplot(mb)
+microbenchmark:::autoplot.microbenchmark(mb)
 ```
 
-```
-## Error: Objects of type microbenchmark not supported by autoplot.  Please use qplot() or ggplot() instead.
-## Objects of type data.frame not supported by autoplot.  Please use qplot() or ggplot() instead.
-```
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
 
 ```r
@@ -179,24 +176,27 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##             self.time self.pct total.time total.pct
-## "character"      0.02      100       0.02       100
+##          self.time self.pct total.time total.pct
+## "pmatch"      0.02      100       0.02       100
 ## 
 ## $by.total
 ##                       total.time total.pct self.time self.pct
-## "character"                 0.02       100      0.02      100
+## "pmatch"                    0.02       100      0.02      100
 ## "block_exec"                0.02       100      0.00        0
 ## "call_block"                0.02       100      0.00        0
+## "deparse"                   0.02       100      0.00        0
+## ".deparseOpts"              0.02       100      0.00        0
+## "eval"                      0.02       100      0.00        0
 ## "evaluate"                  0.02       100      0.00        0
 ## "evaluate_call"             0.02       100      0.00        0
 ## "in_dir"                    0.02       100      0.00        0
 ## "knit"                      0.02       100      0.00        0
+## "match.arg"                 0.02       100      0.00        0
 ## "process_file"              0.02       100      0.00        0
 ## "process_group"             0.02       100      0.00        0
 ## "process_group.block"       0.02       100      0.00        0
-## "remove"                    0.02       100      0.00        0
-## "setHook"                   0.02       100      0.00        0
-## "set_hooks"                 0.02       100      0.00        0
+## "sink"                      0.02       100      0.00        0
+## "watchout"                  0.02       100      0.00        0
 ## "withCallingHandlers"       0.02       100      0.00        0
 ## 
 ## $sample.interval
@@ -261,7 +261,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x55258a0>"
+## [1] "<0x4027360>"
 ```
 
 ```r
@@ -269,8 +269,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x55258a0 -> 0x3fcab40]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x3fcab40 -> 0x3e66948]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x4027360 -> 0x3c076a8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x3c076a8 -> 0x3b4fd18]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -282,7 +282,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x3ac3270>"
+## [1] "<0x34f7a30>"
 ```
 
 ```r
@@ -292,7 +292,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x3ac3270 -> 0x3a2b260]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x34f7a30 -> 0x3468980]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -337,14 +337,8 @@ replaced by the compiled body expression.
 
 
 ```r
+library("compiler")
 readFastaCmp <- cmpfun(readFasta)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "cmpfun"
-```
-
-```r
 f <- dir(system.file("extdata",package="sequences"),
          pattern="fasta", full.names=TRUE)
 microbenchmark(readFasta(f), readFastaCmp(f), times = 1e2)
@@ -353,6 +347,55 @@ microbenchmark(readFasta(f), readFastaCmp(f), times = 1e2)
 ```
 ## Error in eval(expr, envir, enclos): could not find function "microbenchmark"
 ```
+Fibonacci example
+
+
+```r
+fibR <- function(n) {
+    if (n == 0) return(0)
+    if (n == 1) return(1)
+    return( fibR(n - 1) + fibR(n - 2))
+}
+fibR(10)
+```
+
+```
+## [1] 55
+```
+
+
+```r
+library("compiler")
+fibRcmp <- cmpfun(fibR)
+fibRcmp(10)
+```
+
+```
+## [1] 55
+```
+
+
+
+
+```r
+## a C++ implementation (see later)
+fibC(10)
+```
+
+```
+## [1] 55
+```
+
+
+```r
+microbenchmark(fibR(10), fibRcmp(10), fibC(10), times = 1e2)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "microbenchmark"
+```
+
+
 
 ## Calling foreign languages
 
@@ -399,7 +442,7 @@ f()
 ```
 
 ```
-## <environment: 0x494d748>
+## <environment: 0x44aae58>
 ```
 
 ```r
@@ -419,7 +462,7 @@ e
 ```
 
 ```
-## <environment: 0x4197978>
+## <environment: 0x49cb4d8>
 ```
 
 ```r
