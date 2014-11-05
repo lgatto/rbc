@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.001 0.001 0.001 0.001 0.001
+## [1] 0.002 0.001 0.001 0.002 0.002
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 26 24 32 18
+## [1] 33 27 19 21
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 26 24 32 18
+## 33 27 19 21
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 26 24 32 18
+## [1] 33 27 19 21
 ```
 
 But are they really the same? Are we really comparing the same
@@ -176,27 +176,23 @@ summaryRprof("rprof")
 
 ```
 ## $by.self
-##          self.time self.pct total.time total.pct
-## "pmatch"      0.02      100       0.02       100
+##                 self.time self.pct total.time total.pct
+## "plot_snapshot"      0.02      100       0.02       100
 ## 
 ## $by.total
 ##                       total.time total.pct self.time self.pct
-## "pmatch"                    0.02       100      0.02      100
+## "plot_snapshot"             0.02       100      0.02      100
+## "<Anonymous>"               0.02       100      0.00        0
 ## "block_exec"                0.02       100      0.00        0
 ## "call_block"                0.02       100      0.00        0
-## "deparse"                   0.02       100      0.00        0
-## ".deparseOpts"              0.02       100      0.00        0
-## "eval"                      0.02       100      0.00        0
 ## "evaluate"                  0.02       100      0.00        0
 ## "evaluate_call"             0.02       100      0.00        0
+## "handle_output"             0.02       100      0.00        0
 ## "in_dir"                    0.02       100      0.00        0
 ## "knit"                      0.02       100      0.00        0
-## "match.arg"                 0.02       100      0.00        0
 ## "process_file"              0.02       100      0.00        0
 ## "process_group"             0.02       100      0.00        0
 ## "process_group.block"       0.02       100      0.00        0
-## "sink"                      0.02       100      0.00        0
-## "watchout"                  0.02       100      0.00        0
 ## "withCallingHandlers"       0.02       100      0.00        0
 ## 
 ## $sample.interval
@@ -261,7 +257,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x4027360>"
+## [1] "<0x5267a80>"
 ```
 
 ```r
@@ -269,8 +265,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x4027360 -> 0x3c076a8]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x3c076a8 -> 0x3b4fd18]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x5267a80 -> 0x4fe6348]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x4fe6348 -> 0x4fceb08]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -282,7 +278,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x34f7a30>"
+## [1] "<0x4977ab0>"
 ```
 
 ```r
@@ -292,7 +288,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x34f7a30 -> 0x3468980]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x4977ab0 -> 0x48e8a00]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -442,7 +438,7 @@ f()
 ```
 
 ```
-## <environment: 0x44aae58>
+## <environment: 0x5919a68>
 ```
 
 ```r
@@ -462,7 +458,7 @@ e
 ```
 
 ```
-## <environment: 0x49cb4d8>
+## <environment: 0x5e4e488>
 ```
 
 ```r
