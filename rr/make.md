@@ -166,6 +166,20 @@ Version:
  8a2b59a [2014-10-13 12:08:55 +0200]
 ```
 
+## Exercise
+
+Write a `Makefile` for the `Rmd` file you wrote in the previous
+session. Write 3 recipes:
+1) for the `md` file
+2) for the `html` output
+3) for the `pdf` output
+so that 2 and 3 have 1 as prerequisites.
+
+Have a look at directories in the rbc repo to find examples.
+
+Note that one can also include `Makefile`s inside package sub-directories
+to automate some tasks. 
+
 ## Makefile references
 
 - [Karl Broman's minimal make tutorial](http://kbroman.org/minimal_make/)
