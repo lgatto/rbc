@@ -45,7 +45,7 @@ system.time(apply(m, 1, sum))
 
 ```
 ##    user  system elapsed 
-##   0.002   0.000   0.002
+##   0.001   0.000   0.002
 ```
 
 
@@ -54,7 +54,7 @@ replicate(5, system.time(apply(m, 1, sum))[[1]])
 ```
 
 ```
-## [1] 0.002 0.001 0.002 0.001 0.002
+## [1] 0.002 0.001 0.002 0.001 0.001
 ```
 
 
@@ -91,7 +91,7 @@ gccount(s)
 ```
 
 ```
-## [1] 20 21 28 31
+## [1] 23 33 25 19
 ```
 
 ```r
@@ -101,7 +101,7 @@ gccountr(s)
 ```
 ## 
 ##  A  C  G  T 
-## 20 21 28 31
+## 23 33 25 19
 ```
 
 ```r
@@ -109,7 +109,7 @@ gccountr2(s)
 ```
 
 ```
-## [1] 20 21 28 31
+## [1] 23 33 25 19
 ```
 
 But are they really the same? Are we really comparing the same
@@ -169,41 +169,36 @@ benchmark(replications = 1e4,
 
 ```r
 Rprof("rprof")
-res <- apply(m, 1, mean, trim=.3)
+replicate(5, res <- apply(m, 1, mean, trim=.3))
 Rprof(NULL)
 summaryRprof("rprof")
 ```
 
 ```
-## $by.self
-##         self.time self.pct total.time total.pct
-## "match"      0.02      100       0.02       100
-## 
-## $by.total
-##                       total.time total.pct self.time self.pct
-## "match"                     0.02       100      0.02      100
-## "block_exec"                0.02       100      0.00        0
-## "call_block"                0.02       100      0.00        0
-## "deparse"                   0.02       100      0.00        0
-## "eval"                      0.02       100      0.00        0
-## "evaluate"                  0.02       100      0.00        0
-## "evaluate_call"             0.02       100      0.00        0
-## "%in%"                      0.02       100      0.00        0
-## "in_dir"                    0.02       100      0.00        0
-## "knit"                      0.02       100      0.00        0
-## "match.arg"                 0.02       100      0.00        0
-## "process_file"              0.02       100      0.00        0
-## "process_group"             0.02       100      0.00        0
-## "process_group.block"       0.02       100      0.00        0
-## "setHook"                   0.02       100      0.00        0
-## "set_hooks"                 0.02       100      0.00        0
-## "withCallingHandlers"       0.02       100      0.00        0
-## 
-## $sample.interval
-## [1] 0.02
-## 
-## $sampling.time
-## [1] 0.02
+$by.self
+         self.time self.pct total.time total.pct
+"apply"       0.04    33.33       0.12    100.00
+"FUN"         0.04    33.33       0.12    100.00
+"any"         0.02    16.67       0.02     16.67
+"unique"      0.02    16.67       0.02     16.67
+
+$by.total
+               total.time total.pct self.time self.pct
+"apply"              0.12    100.00      0.04    33.33
+"FUN"                0.12    100.00      0.04    33.33
+"lapply"             0.12    100.00      0.00     0.00
+"replicate"          0.12    100.00      0.00     0.00
+"sapply"             0.12    100.00      0.00     0.00
+"mean.default"       0.04     33.33      0.00     0.00
+"sort.int"           0.04     33.33      0.00     0.00
+"any"                0.02     16.67      0.02    16.67
+"unique"             0.02     16.67      0.02    16.67
+
+$sample.interval
+[1] 0.02
+
+$sampling.time
+[1] 0.12
 ```
 
 ### The `lineprof` package
@@ -261,7 +256,7 @@ tracemem(a)
 ```
 
 ```
-## [1] "<0x4faa940>"
+## [1] "<0x4601f98>"
 ```
 
 ```r
@@ -269,8 +264,8 @@ seq(a) <- "GATC"
 ```
 
 ```
-## tracemem[0x4faa940 -> 0x592db80]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
-## tracemem[0x592db80 -> 0x43ab1d0]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x4601f98 -> 0x425bc08]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit 
+## tracemem[0x425bc08 -> 0x41f3ba0]: seq<- seq<- eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 The illusion of copying
@@ -282,7 +277,7 @@ tracemem(x)
 ```
 
 ```
-## [1] "<0x5dc0258>"
+## [1] "<0x3d29538>"
 ```
 
 ```r
@@ -292,7 +287,7 @@ x[1] <- 1L
 ```
 
 ```
-## tracemem[0x5dc0258 -> 0x5d493d0]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
+## tracemem[0x3d29538 -> 0x3cb9e50]: eval eval withVisible withCallingHandlers doTryCatch tryCatchOne tryCatchList tryCatch try handle evaluate_call evaluate in_dir block_exec call_block process_group.block process_group withCallingHandlers process_file knit
 ```
 
 ```r
@@ -348,9 +343,9 @@ microbenchmark(readFasta(f), readFastaCmp(f), times = 1e2)
 
 ```
 ## Unit: microseconds
-##             expr     min       lq    mean   median       uq      max neval
-##     readFasta(f) 624.899 639.2480 663.511 650.9590 672.9005  798.087   100
-##  readFastaCmp(f) 617.675 635.1935 702.181 646.2305 681.0950 3328.094   100
+##             expr     min       lq     mean  median      uq      max neval
+##     readFasta(f) 603.590 618.1235 656.9715 637.179 673.671  946.715   100
+##  readFastaCmp(f) 600.057 613.5380 703.0776 626.811 687.359 3110.835   100
 ##  cld
 ##    a
 ##    a
@@ -401,10 +396,10 @@ microbenchmark(fibR(10), fibRcmp(10), fibC(10), times = 1e2)
 
 ```
 ## Unit: microseconds
-##         expr     min       lq      mean  median       uq      max neval
-##     fibR(10) 152.592 174.2375 179.85107 178.689 185.2090  211.975   100
-##  fibRcmp(10) 157.643 175.2875 191.48498 180.041 184.6160 1142.798   100
-##     fibC(10)   1.727   2.4290   3.17924   3.000   3.5255    8.570   100
+##         expr     min       lq      mean   median       uq      max neval
+##     fibR(10) 152.605 175.9425 193.23615 178.7570 188.5425 1146.152   100
+##  fibRcmp(10) 160.187 173.4690 182.94544 178.2695 185.3835  240.485   100
+##     fibC(10)   1.950   2.6965   3.33669   3.1990   3.8300    8.476   100
 ##  cld
 ##    b
 ##    b
@@ -458,7 +453,7 @@ f()
 ```
 
 ```
-## <environment: 0x4686998>
+## <environment: 0x3f58cb8>
 ```
 
 ```r
@@ -478,7 +473,7 @@ e
 ```
 
 ```
-## <environment: 0x2a334e0>
+## <environment: 0x3c98228>
 ```
 
 ```r
