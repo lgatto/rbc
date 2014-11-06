@@ -170,9 +170,11 @@ Version:
 
 Write a `Makefile` for the `Rmd` file you wrote in the previous
 session. Write 3 recipes:
-1) for the `md` file
-2) for the `html` output
-3) for the `pdf` output
+
+1. for the `md` file
+2. for the `html` output
+3. for the `pdf` output
+
 so that 2 and 3 have 1 as prerequisites.
 
 Have a look at directories in the rbc repo to find examples.
