@@ -101,11 +101,38 @@ benchmark(replications = 1e4,
 
 ## Profiling 
 
-```{r}
+```{r, eval=FALSE}
 Rprof("rprof")
-res <- apply(m, 1, mean, trim=.3)
+replicate(5, res <- apply(m, 1, mean, trim=.3))
 Rprof(NULL)
 summaryRprof("rprof")
+```
+
+```
+$by.self
+         self.time self.pct total.time total.pct
+"apply"       0.04    33.33       0.12    100.00
+"FUN"         0.04    33.33       0.12    100.00
+"any"         0.02    16.67       0.02     16.67
+"unique"      0.02    16.67       0.02     16.67
+
+$by.total
+               total.time total.pct self.time self.pct
+"apply"              0.12    100.00      0.04    33.33
+"FUN"                0.12    100.00      0.04    33.33
+"lapply"             0.12    100.00      0.00     0.00
+"replicate"          0.12    100.00      0.00     0.00
+"sapply"             0.12    100.00      0.00     0.00
+"mean.default"       0.04     33.33      0.00     0.00
+"sort.int"           0.04     33.33      0.00     0.00
+"any"                0.02     16.67      0.02    16.67
+"unique"             0.02     16.67      0.02    16.67
+
+$sample.interval
+[1] 0.02
+
+$sampling.time
+[1] 0.12
 ```
 
 ### The `lineprof` package
