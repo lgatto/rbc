@@ -64,7 +64,7 @@ the content will be made available here.
 - Various teaching material: https://github.com/lgatto/teachingmaterial
 - [Advanced R](http://adv-r.had.co.nz/) by Hadley Wickham
 - [Package development](http://r-pkgs.had.co.nz/)
-- Bioconductor package development (add link)
+- [Bioconductor package development](http://www.bioconductor.org/developers/how-to/buildingPackagesForBioc/)
 
 ## Logistics
 
