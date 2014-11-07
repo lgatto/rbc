@@ -91,7 +91,7 @@ If you prefer the pdf format you need to have a latex compiler, so the
 following may not work for you:
 
 ```{r, eval=FALSE}
-require("knitr")
+library("knitr")
 ## Rmd -> md
 knit('simple.Rmd')
 ## Rmd -> html
