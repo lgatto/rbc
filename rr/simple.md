@@ -148,7 +148,7 @@ following may not work for you:
 
 
 ```r
-require("knitr")
+library("knitr")
 ## Rmd -> md
 knit('simple.Rmd')
 ## Rmd -> html
